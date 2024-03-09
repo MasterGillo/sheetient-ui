@@ -1,0 +1,21 @@
+<div class="section-content" [formGroup]="form" *ngIf="form">
+    <div class="control-row">
+        <mat-form-field>
+            <mat-label>Spacing X</mat-label>
+            <input inputmode="numeric" type="number" matInput formControlName="spacingX" />
+            <span matTextSuffix>pixels</span>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Spacing Y</mat-label>
+            <input inputmode="numeric" type="number" matInput formControlName="spacingY" />
+            <span matTextSuffix>pixels</span>
+        </mat-form-field>
+    </div>
+    <app-colour-input label="Grid Colour" formControlName="gridColour"></app-colour-input>
+    <div class="control-right">
+        <mat-slide-toggle color="accent" formControlName="showGrid" hideIcon labelPosition="before">
+            SHOW GRID
+        </mat-slide-toggle>
+    </div>
+</div>

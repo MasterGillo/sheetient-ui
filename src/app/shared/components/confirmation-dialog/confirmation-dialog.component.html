@@ -1,0 +1,15 @@
+<div class="dialog-container mat-body">
+    <div class="dialog-header">
+        <mat-icon>{{ data.headerIcon }}</mat-icon>
+        {{ data.headerText }}
+    </div>
+    <div class="dialog-content">
+        {{ data.bodyText }}
+    </div>
+    <div class="dialog-actions">
+        <button mat-button color="accent" [mat-dialog-close]="false">{{ data.noActionButtonText }}</button>
+        <button mat-flat-button color="accent" [mat-dialog-close]="true">
+            {{ data.actionButtonText }}
+        </button>
+    </div>
+</div>

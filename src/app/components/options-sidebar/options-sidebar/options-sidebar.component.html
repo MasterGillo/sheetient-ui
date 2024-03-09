@@ -1,0 +1,31 @@
+<div class="sidebar-container">
+    <div class="content">
+        <mat-accordion multi="true">
+            <mat-expansion-panel
+                class="section-container"
+                [expanded]="optionsConfig.pageSectionExpanded"
+                (opened)="handleExpansionChange('page', true)"
+                (closed)="handleExpansionChange('page', false)">
+                <mat-expansion-panel-header class="section-header" collapsedHeight="2rem" expandedHeight="2rem">
+                    <mat-icon>description</mat-icon>
+                    <span>Page</span>
+                </mat-expansion-panel-header>
+                <app-page-options
+                    [(page)]="currentPage"
+                    [canDelete]="canDeletePage"
+                    (deletePage)="deletePage()"></app-page-options>
+            </mat-expansion-panel>
+            <mat-expansion-panel
+                class="section-container"
+                [expanded]="optionsConfig.gridSectionExpanded"
+                (opened)="handleExpansionChange('grid', true)"
+                (closed)="handleExpansionChange('grid', false)">
+                <mat-expansion-panel-header class="section-header" collapsedHeight="2rem" expandedHeight="2rem">
+                    <mat-icon>grid_on</mat-icon>
+                    <span>Page Grid</span>
+                </mat-expansion-panel-header>
+                <app-grid-options [(page)]="currentPage"></app-grid-options>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

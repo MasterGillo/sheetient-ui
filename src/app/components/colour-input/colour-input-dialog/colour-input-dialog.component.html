@@ -1,0 +1,59 @@
+<div class="mat-elevation-z8">
+    <mat-card class="no-shadow">
+        <mat-card-content>
+            <form [formGroup]="form" *ngIf="form">
+                <div class="control-row">
+                    <span class="mat-body-strong">R:</span>
+                    <mat-slider min="0" max="255" step="1" color="accent" class="red-slider">
+                        <input matSliderThumb [formControlName]="'red'" [value]="form.get('red')?.value" />
+                    </mat-slider>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            inputmode="numeric"
+                            type="number"
+                            min="0"
+                            max="255"
+                            [formControlName]="'red'"
+                            [value]="form.get('red')?.value"
+                            class="text-center" />
+                    </mat-form-field>
+                </div>
+                <div class="control-row">
+                    <span class="mat-body-strong">G:</span>
+                    <mat-slider min="0" max="255" step="1" color="accent" class="green-slider">
+                        <input matSliderThumb [formControlName]="'green'" [value]="form.get('green')?.value" />
+                    </mat-slider>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            inputmode="numeric"
+                            type="number"
+                            min="0"
+                            max="255"
+                            [formControlName]="'green'"
+                            [value]="form.get('green')?.value"
+                            class="text-center" />
+                    </mat-form-field>
+                </div>
+                <div class="control-row">
+                    <span class="mat-body-strong">B:</span>
+                    <mat-slider min="0" max="255" step="1" color="accent" class="blue-slider">
+                        <input matSliderThumb [formControlName]="'blue'" [value]="form.get('blue')?.value" />
+                    </mat-slider>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            inputmode="numeric"
+                            type="number"
+                            min="0"
+                            max="255"
+                            [formControlName]="'blue'"
+                            [value]="form.get('blue')?.value"
+                            class="text-center" />
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

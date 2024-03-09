@@ -1,0 +1,20 @@
+<div class="mat-elevation-z8">
+    <mat-card class="no-shadow">
+        <mat-card-content class="no-padding">
+            <mat-action-list class="field-list">
+                <button mat-list-item (click)="fieldClick(fieldType.Label)">
+                    <div class="list-item-content">
+                        <div class="field-button-title">Label</div>
+                        <div class="mat-small field-button-description">A static text field</div>
+                    </div>
+                </button>
+                <button mat-list-item (click)="fieldClick(fieldType.TextInput)">
+                    <div class="list-item-content">
+                        <div class="mat-strong field-button-title">Text Input</div>
+                        <div class="mat-small field-button-description">A control for entering text or numbers</div>
+                    </div>
+                </button>
+            </mat-action-list>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,8 @@
+<mat-form-field #formField>
+    <mat-label>{{ label }}</mat-label>
+    <input inputmode="numeric" matInput [formControl]="formControl" #input />
+    <span matTextPrefix>#</span>
+    <button mat-icon-button matSuffix color="accent" (click)="open()">
+        <mat-icon>tune</mat-icon>
+    </button>
+</mat-form-field>

@@ -1,0 +1,15 @@
+.field-list {
+    button {
+        height: auto;
+        padding: 0.25rem 1rem;
+        .list-item-content {
+            .field-button-description {
+                opacity: 0.6;
+            }
+        }
+        &:not(:last-of-type) {
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.6);
+        }
+    }
+}

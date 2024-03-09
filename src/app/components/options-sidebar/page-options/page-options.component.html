@@ -1,0 +1,22 @@
+<div class="section-content" [formGroup]="form" *ngIf="form">
+    <mat-form-field>
+        <mat-label>Page Name</mat-label>
+        <input matInput formControlName="name" />
+    </mat-form-field>
+    <app-colour-input label="Background Colour" formControlName="colour"></app-colour-input>
+    <div class="control-row">
+        <mat-form-field>
+            <mat-label>Height</mat-label>
+            <input inputmode="numeric" type="number" matInput formControlName="height" />
+            <span matTextSuffix>pixels</span>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Width</mat-label>
+            <input inputmode="numeric" type="number" matInput formControlName="width" />
+            <span matTextSuffix>pixels</span>
+        </mat-form-field>
+    </div>
+</div>
+<div class="section-actions" *ngIf="canDelete">
+    <button mat-button color="accent" (click)="deletePage.emit()">DELETE</button>
+</div>

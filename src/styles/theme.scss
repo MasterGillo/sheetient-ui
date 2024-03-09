@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$sheetient-primary: mat.define-palette(mat.$blue-grey-palette);
+$sheetient-accent: mat.define-palette(mat.$orange-palette, 800, 700, 900);
+$sheetient-warn: mat.define-palette(mat.$red-palette);
+
+$sheetient-typography: mat.define-typography-config();
+
+$sheetient-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $sheetient-primary,
+            accent: $sheetient-accent,
+            warn: $sheetient-warn,
+        ),
+        typography: $sheetient-typography,
+        density: -2,
+    )
+);
+
+$theme-white: #FFF;
