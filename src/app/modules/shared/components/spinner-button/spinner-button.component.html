@@ -1,0 +1,8 @@
+<div class="button-container">
+    <div class="spinner-container" *ngIf="isSpinning">
+        <mat-spinner class="spinner" [color]="color" diameter="30"></mat-spinner>
+    </div>
+    <button class="no-rounding" mat-flat-button [color]="color" [type]="type" [disabled]="isSpinning">
+        <ng-content></ng-content>
+    </button>
+</div>

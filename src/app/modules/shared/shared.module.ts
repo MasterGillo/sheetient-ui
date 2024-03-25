@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,18 +19,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { UnsubscriberComponent } from './components/unsubscriber/unsubscriber.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { SpinnerButtonComponent } from './components/spinner-button/spinner-button.component';
 
 @NgModule({
-    declarations: [UnsubscriberComponent, ConfirmationDialogComponent],
+    declarations: [UnsubscriberComponent, ConfirmationDialogComponent, SpinnerButtonComponent],
     imports: [
         CommonModule,
         MatToolbarModule,
         MatSidenavModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
@@ -49,12 +50,13 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
         DragDropModule,
         MatListModule,
         ScrollingModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule,
     ],
     exports: [
         CommonModule,
         MatToolbarModule,
         MatSidenavModule,
-        BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
@@ -72,13 +74,15 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
         DragDropModule,
         MatListModule,
         ScrollingModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule,
+        SpinnerButtonComponent,
     ],
     providers: [
         {
             provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
             useValue: {
                 appearance: 'outline',
-                subscriptSizing: 'dynamic',
                 floatLabel: 'always',
                 color: 'accent',
                 hideRequiredMarker: true,

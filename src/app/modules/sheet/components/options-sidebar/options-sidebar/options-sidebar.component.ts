@@ -6,9 +6,9 @@ import { PageInterface } from 'src/app/models/page.interface';
 import { SheetInterface } from 'src/app/models/sheet.interface';
 import { OptionsService } from 'src/app/services/options/options.service';
 import { SheetService } from 'src/app/services/sheet/sheet.service';
-import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from 'src/app/models/confirmation-dialog-data.interface';
-import { UnsubscriberComponent } from '../../../shared/components/unsubscriber/unsubscriber.component';
+import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
 
 @Component({
     selector: 'app-options-sidebar',

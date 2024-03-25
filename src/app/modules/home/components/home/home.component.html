@@ -1,0 +1,20 @@
+<div class="page-container">
+    <div class="login-container">
+        <app-login *ngIf="login" (loggingIn)="loading = $event"></app-login>
+        <app-register *ngIf="!login" (signingUp)="loading = $event"></app-register>
+    </div>
+    <div class="intro-container">
+        <h1 class="title">Sheetient</h1>
+        <h1 class="description">Custom TTRPG character sheets</h1>
+        <p class="mat-h4">
+            {{
+                login
+                    ? "Don't have an account yet? Click the button below to get started."
+                    : 'Already have an account? Click below to log in.'
+            }}
+        </p>
+        <button mat-raised-button color="accent" class="no-rounding" (click)="login = !login" [disabled]="loading">
+            {{ login ? 'Sign Up' : 'Log In' }}
+        </button>
+    </div>
+</div>

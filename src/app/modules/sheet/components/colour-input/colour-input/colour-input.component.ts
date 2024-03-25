@@ -6,7 +6,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Colour } from 'src/app/models/colour.type';
 import { filter, first, merge, takeUntil } from 'rxjs';
-import { UnsubscriberComponent } from '../../../shared/components/unsubscriber/unsubscriber.component';
+import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
 
 @Component({
     selector: 'app-colour-input',

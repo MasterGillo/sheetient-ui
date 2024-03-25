@@ -13,7 +13,7 @@ import { EMPTY, fromEvent, merge } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { Field } from 'src/app/models/field.type';
 import { PageInterface } from 'src/app/models/page.interface';
-import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
+import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
 
 @Component({
     selector: 'app-page',

@@ -1,0 +1,57 @@
+@use '@angular/material' as mat;
+@import '/src/styles/theme.scss';
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-image:
+        conic-gradient(from 85deg at bottom 23% right 45%, mat.get-color-from-palette($sheetient-primary, 300) 90deg, transparent 90deg),
+        conic-gradient(from 80deg at bottom 15% right 50%, mat.get-color-from-palette($sheetient-primary, 400) 90deg, transparent 90deg),
+        linear-gradient(
+            mat.get-color-from-palette($sheetient-primary, 400),
+            mat.get-color-from-palette($sheetient-primary, 400) 50%,
+            mat.get-color-from-palette($sheetient-primary, 100));
+}
+
+.login-container {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-container {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .title {
+        font-size: 60px;
+        line-height: 64px;
+        font-weight: 600;
+        letter-spacing: 0.0125em;
+        font-variant: small-caps;
+        color: mat.get-contrast-color-from-palette($sheetient-primary, 400);
+        margin-bottom: 0.5rem;
+    }
+
+    .description {
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 500;
+        color: mat.get-contrast-color-from-palette($sheetient-primary, 400);
+        margin-bottom: 1.5rem;
+    }
+    p {
+        color: mat.get-contrast-color-from-palette($sheetient-primary, 400);
+    }
+
+    button {
+        font-variant: small-caps;
+        letter-spacing: .0125em;
+        font-size: 16px;
+    }
+}

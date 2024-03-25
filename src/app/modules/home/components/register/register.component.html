@@ -1,0 +1,38 @@
+<div class="card-container mat-elevation-z1">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="card-header">Sign Up</div>
+        <div class="card-body">
+            <mat-form-field class="no-rounding">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" maxlength="256" (blur)="addUsernameValidators()" />
+                <mat-error *ngIf="usernameControl.errors">
+                    {{ getControlErrorMessage(usernameControl) }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="no-rounding">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" maxlength="256" />
+                <mat-error *ngIf="emailControl.errors">
+                    {{ getControlErrorMessage(emailControl) }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="no-rounding">
+                <mat-label>Password</mat-label>
+                <input
+                    matInput
+                    [type]="hidePassword ? 'password' : 'text'"
+                    formControlName="password"
+                    maxlength="256" />
+                <button mat-icon-button matSuffix color="accent" (click)="hidePassword = !hidePassword" type="button">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="passwordControl.errors">
+                    {{ getControlErrorMessage(passwordControl) }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="card-buttons">
+            <app-spinner-button color="accent" type="submit" [isSpinning]="isSigningUp">Sign Up</app-spinner-button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+<div class="login-container">
+    <div class="card-container mat-elevation-z3">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="card-header">Log In</div>
+            <div class="card-body">
+                <mat-form-field class="no-rounding">
+                    <mat-label>Username or Email</mat-label>
+                    <input matInput formControlName="usernameOrEmail" maxlength="256" />
+                    <mat-error *ngIf="usernameOrEmailControl.errors?.['required']"> Required field. </mat-error>
+                </mat-form-field>
+                <mat-form-field class="no-rounding">
+                    <mat-label>Password</mat-label>
+                    <input
+                        matInput
+                        [type]="hidePassword ? 'password' : 'text'"
+                        formControlName="password"
+                        maxlength="256" />
+                    <button
+                        mat-icon-button
+                        matSuffix
+                        type="button"
+                        color="accent"
+                        (click)="hidePassword = !hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordControl.errors?.['required']"> Required field. </mat-error>
+                    <mat-error *ngIf="passwordControl.errors?.['minlength']">
+                        Must be at least 8 characters.
+                    </mat-error>
+                </mat-form-field>
+                <div class="control-row control-row__space-between">
+                    <mat-checkbox class="checkbox-accent-text" color="accent" formControlName="rememberMe">
+                        Remember Me
+                    </mat-checkbox>
+                    <button class="forgot-password" mat-button color="accent">Forgot Password?</button>
+                </div>
+            </div>
+            <div class="card-buttons">
+                <app-spinner-button color="accent" type="submit" [isSpinning]="isLoggingIn">Log In</app-spinner-button>
+            </div>
+        </form>
+    </div>
+
+    <div class="error-message mat-elevation-z3" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>

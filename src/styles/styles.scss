@@ -8,6 +8,33 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    &_centered {
+        justify-content: center;
+    }
+    .title {
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: 500;
+        letter-spacing: 0.0125em;
+    }
+}
+
+.main-container {
+    margin-top: 3.5rem;
+    flex: 1;
+    overflow-y: auto;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     appearance: none;
@@ -84,6 +111,9 @@ input[type=number] {
     mat-form-field div.mat-mdc-text-field-wrapper div.mat-mdc-form-field-flex div.mdc-notched-outline {
         padding-right: 1px;
     }
+    &__space-between {
+        justify-content: space-between;
+    }
 }
 
 .control-right {
@@ -130,4 +160,61 @@ button.mat-accent {
 
 .no-padding {
     padding: 0 !important;
+}
+
+.no-rounding
+{
+    border-radius: 0 !important;
+    div.mat-mdc-text-field-wrapper div.mat-mdc-form-field-flex div.mdc-notched-outline * {
+        border-radius: 0 !important;
+    }
+}
+
+mat-checkbox.checkbox-accent-text {
+    div.mdc-form-field {
+        font-weight: 500 !important;
+        letter-spacing: .0125em;
+        color: mat.get-color-from-palette($sheetient-accent, 800) !important;
+        div.mdc-checkbox {
+            div.mdc-checkbox__background {
+                border-radius: 0;
+                svg.mdc-checkbox__checkmark {
+                    color: white;
+                }
+            }
+        }
+
+        label.mdc-label {
+            font-variant: small-caps;
+            color: rgba(0, 0, 0, 0.54);
+        }
+    }
+    &.mat-mdc-checkbox-checked {
+        label.mdc-label {
+            color: mat.get-color-from-palette($sheetient-accent, 800) !important;
+        }
+    }
+}
+
+.snack-bar-error {
+
+    .mdc-snackbar__surface {
+        background-color: mat.get-color-from-palette($sheetient-warn, 800) !important;
+        color: mat.get-contrast-color-from-palette($sheetient-warn, 800) !important;
+    }
+    .mdc-snackbar__action {
+        color: white !important;
+        font-variant: small-caps;
+        letter-spacing: .0125em;
+        font-size: 16px;
+    }
+}
+
+.error-message {
+    background-color: mat.get-color-from-palette($sheetient-warn, 800);
+    color: mat.get-contrast-color-from-palette($sheetient-warn, 800);
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
 }
