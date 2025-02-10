@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sheetient-ui:build:production"
+              "buildTarget": "sheetient-ui:build:production"
             },
             "development": {
-              "browserTarget": "sheetient-ui:build:development"
+              "buildTarget": "sheetient-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sheetient-ui:build"
+            "buildTarget": "sheetient-ui:build"
           }
         },
         "test": {
