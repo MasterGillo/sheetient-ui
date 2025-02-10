@@ -9,5 +9,4 @@ export class SpinnerButtonComponent {
     @Input() color: string;
     @Input() type: string;
     @Input() isSpinning: boolean;
-    @Input() value: string;
 }

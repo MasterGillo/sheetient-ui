@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$sheetient-primary: mat.define-palette(mat.$blue-grey-palette, 400);
-$sheetient-accent: mat.define-palette(mat.$teal-palette, 800);
+$sheetient-primary: mat.define-palette(mat.$blue-grey-palette, 500);
+$sheetient-accent: mat.define-palette(mat.$teal-palette, 700);
 $sheetient-warn: mat.define-palette(mat.$red-palette, 800);
 
 $sheetient-typography: mat.define-typography-config();

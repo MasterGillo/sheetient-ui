@@ -1,0 +1,92 @@
+@use '@angular/material' as mat;
+@import '/src/styles/theme.scss';
+
+.app-container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    .app-bar {
+        z-index: 3;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        padding: 0 1.5rem;
+        justify-content: center;
+        background-color: mat.get-color-from-palette($sheetient-primary, 500);
+        color: mat.get-contrast-color-from-palette($sheetient-primary, 500);
+        .title {
+            font-size: 32px;
+            line-height: 32px;
+            font-weight: 600;
+            letter-spacing: 0.0125em;
+            font-variant: small-caps;
+            margin: 0;
+        }
+    }
+
+    .app-content {
+        height: 100%;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+
+        .dashboard-section {
+            flex: 1 1 auto;
+            background-color: whitesmoke;
+            .dashboard-section-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: mat.get-color-from-palette($sheetient-primary, 600);
+                color: mat.get-contrast-color-from-palette($sheetient-primary, 600);
+                height: 3rem;
+                padding: 0 3rem;
+
+                font-size: 24px;
+                font-weight: 500;
+                line-height: 24px;
+                letter-spacing: 0.0125em;
+                font-variant: small-caps;
+
+
+            }
+            .button-row {
+                display: flex;
+                flex-direction: row-reverse;
+                padding: 1rem 2rem;
+                button {
+                    font-variant: small-caps;
+                    letter-spacing: .0125em;
+                    font-size: 16px;
+                }
+            }
+            .sheet-list {
+                display: flex;
+                gap: 2rem;
+                padding: 0 3rem;
+                .sheet {
+                    border: solid 1px rgba(0, 0, 0, 0.5);
+                    height: 20rem;
+                    width: 14rem;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    padding: 1rem 1rem;
+                    .sheet-name {
+                        font-variant: small-caps;
+                        letter-spacing: .0125em;
+                        font-size: 20px;
+                        font-weight: 500;
+                        margin-bottom: 0.5rem;
+                        color: mat.get-color-from-palette($sheetient-accent, 700);
+                    }
+                    .sheet-description {
+                        color: rgba(0, 0, 0, 0.7);
+                    }
+                }
+            }
+        }
+    }
+}

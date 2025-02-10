@@ -1,23 +1,26 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FieldType } from 'src/app/models/field-type.enum';
 import { Field } from 'src/app/models/field.type';
 import { LabelField } from 'src/app/models/label-field';
-import { PageInterface } from 'src/app/models/page.interface';
-import { SheetInterface } from 'src/app/models/sheet.interface';
+import { Page } from 'src/app/models/page.model';
+import { Sheet } from 'src/app/models/sheet.model';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SheetService {
-    private _sheet: SheetInterface = {
+    private _sheet: Sheet = {
         id: 0,
         name: 'Test Sheet',
-        pageCount: 1,
+        description: 'description',
+        pages: [],
     };
 
-    private _pages: PageInterface[] = [
+    private _pages: Page[] = [
         {
             id: 0,
             name: 'Page 1',
@@ -25,12 +28,12 @@ export class SheetService {
             height: 1123,
             width: 794,
             order: 0,
-            grid: {
-                spacingY: 20,
-                spacingX: 20,
-                showGrid: true,
-                gridColour: 'cccccc',
-            },
+            // grid: {
+            //     spacingY: 20,
+            //     spacingX: 20,
+            //     showGrid: true,
+            //     gridColour: 'cccccc',
+            // },
         },
     ];
 
@@ -38,13 +41,15 @@ export class SheetService {
 
     private _currentPageId: number = this._pages[0].id;
 
-    sheet$: BehaviorSubject<SheetInterface> = new BehaviorSubject(this._sheet);
-    pages$: BehaviorSubject<PageInterface[]> = new BehaviorSubject(this._pages);
-    currentPage$: BehaviorSubject<PageInterface> = new BehaviorSubject(this._pages[0]);
+    sheet$: BehaviorSubject<Sheet> = new BehaviorSubject(this._sheet);
+    pages$: BehaviorSubject<Page[]> = new BehaviorSubject(this._pages);
+    currentPage$: BehaviorSubject<Page> = new BehaviorSubject(this._pages[0]);
     newField$: Subject<Field> = new Subject();
     fields$: BehaviorSubject<Field[]> = new BehaviorSubject(this._fields);
 
-    updateSheet(sheetConfig: Partial<SheetInterface>): void {
+    constructor(private httpClient: HttpClient) {}
+
+    updateSheet(sheetConfig: Partial<Sheet>): void {
         this._sheet = { ...this._sheet, ...sheetConfig };
         this.sheet$.next(this._sheet);
     }
@@ -57,40 +62,40 @@ export class SheetService {
         }
     }
 
-    updateCurrentPage(pageChanges: Partial<PageInterface>): void {
-        this.updatePage(this._currentPageId, pageChanges);
-    }
+    // updateCurrentPage(pageChanges: Partial<Page>): void {
+    //     this.updatePage(this._currentPageId, pageChanges);
+    // }
 
-    updatePage(pageId: number, pageChanges: Partial<PageInterface>): void {
-        const index = this._pages.findIndex((page) => page.id === pageId);
-        if (index != null) {
-            const grid = { ...this._pages[index].grid };
-            this._pages[index] = { ...this._pages[index], ...pageChanges };
-            this._pages[index].grid = { ...grid, ...pageChanges.grid };
+    // updatePage(pageId: number, pageChanges: Partial<Page>): void {
+    //     const index = this._pages.findIndex((page) => page.id === pageId);
+    //     if (index != null) {
+    //         const grid = { ...this._pages[index].grid };
+    //         this._pages[index] = { ...this._pages[index], ...pageChanges };
+    //         this._pages[index].grid = { ...grid, ...pageChanges.grid };
 
-            this.pages$.next(this._pages);
+    //         this.pages$.next(this._pages);
 
-            if (this._currentPageId === pageId) {
-                this.currentPage$.next(this._pages[index]);
-            }
-        }
-    }
+    //         if (this._currentPageId === pageId) {
+    //             this.currentPage$.next(this._pages[index]);
+    //         }
+    //     }
+    // }
 
-    addPage(): void {
-        const newId = Math.max(...this._pages.map((page) => page.id)) + 1;
-        this._sheet.pageCount++;
-        this.sheet$.next(this._sheet);
-        const newPage = JSON.parse(JSON.stringify(this.currentPage$.getValue()));
-        newPage.id = newId;
-        newPage.name = 'Page ' + this._sheet.pageCount;
-        newPage.order = this._pages.length;
-        this._pages.push(newPage);
-        this.pages$.next(this._pages);
-        this.switchCurrentPage(newId);
-    }
+    // addPage(): void {
+    //     const newId = Math.max(...this._pages.map((page) => page.id)) + 1;
+    //     this._sheet.pageCount++;
+    //     this.sheet$.next(this._sheet);
+    //     const newPage = JSON.parse(JSON.stringify(this.currentPage$.getValue()));
+    //     newPage.id = newId;
+    //     newPage.name = 'Page ' + this._sheet.pageCount;
+    //     newPage.order = this._pages.length;
+    //     this._pages.push(newPage);
+    //     this.pages$.next(this._pages);
+    //     this.switchCurrentPage(newId);
+    // }
 
-    reorderPages(previousIndex: number, newindex: number): void {
-        moveItemInArray(this._pages, previousIndex, newindex);
+    reorderPages(previousIndex: number, newIndex: number): void {
+        moveItemInArray(this._pages, previousIndex, newIndex);
         this.reindexPages();
         this.pages$.next(this._pages);
     }
@@ -135,5 +140,13 @@ export class SheetService {
             };
             this._fields.push(newField);
         }
+    }
+
+    getSheets(): Observable<Sheet[]> {
+        return this.httpClient.get<Sheet[]>(environment.baseApiUrl + '/sheet');
+    }
+
+    createSheet(sheet: Sheet): Observable<number> {
+        return this.httpClient.post<number>(environment.baseApiUrl + '/sheet', sheet);
     }
 }

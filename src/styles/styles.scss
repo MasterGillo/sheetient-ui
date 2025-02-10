@@ -5,29 +5,10 @@
 
 @include mat.typography-hierarchy($sheetient-typography);
 
+@import './card.scss';
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 3;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    &_centered {
-        justify-content: center;
-    }
-    .title {
-        font-size: 24px;
-        line-height: 24px;
-        font-weight: 500;
-        letter-spacing: 0.0125em;
-    }
-}
 
 .main-container {
     margin-top: 3.5rem;
@@ -108,12 +89,19 @@ input[type=number] {
     min-height: 2.5rem;
     align-items: center;
 
-    mat-form-field div.mat-mdc-text-field-wrapper div.mat-mdc-form-field-flex div.mdc-notched-outline {
-        padding-right: 1px;
+    mat-form-field {
+        flex: 1 1 auto;
+        div.mat-mdc-text-field-wrapper div.mat-mdc-form-field-flex div.mdc-notched-outline {
+            padding-right: 1px;
+        }
+    }
+    > :not(mat-form-field) {
+        margin-bottom: 22px;
     }
     &__space-between {
         justify-content: space-between;
     }
+
 }
 
 .control-right {
@@ -174,7 +162,7 @@ mat-checkbox.checkbox-accent-text {
     div.mdc-form-field {
         font-weight: 500 !important;
         letter-spacing: .0125em;
-        color: mat.get-color-from-palette($sheetient-accent, 800) !important;
+        color: mat.get-color-from-palette($sheetient-accent, 700) !important;
         div.mdc-checkbox {
             div.mdc-checkbox__background {
                 border-radius: 0;
@@ -191,13 +179,12 @@ mat-checkbox.checkbox-accent-text {
     }
     &.mat-mdc-checkbox-checked {
         label.mdc-label {
-            color: mat.get-color-from-palette($sheetient-accent, 800) !important;
+            color: mat.get-color-from-palette($sheetient-accent, 700) !important;
         }
     }
 }
 
 .snack-bar-error {
-
     .mdc-snackbar__surface {
         background-color: mat.get-color-from-palette($sheetient-warn, 800) !important;
         color: mat.get-contrast-color-from-palette($sheetient-warn, 800) !important;
@@ -217,4 +204,10 @@ mat-checkbox.checkbox-accent-text {
     display: flex;
     align-items: center;
     padding-left: 1rem;
+}
+
+.sheetient-dialog {
+    div.mat-mdc-dialog-surface {
+        border-radius: 0;
+    }
 }

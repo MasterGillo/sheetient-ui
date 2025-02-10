@@ -6,12 +6,11 @@
     justify-content: center;
     height: 100%;
     background-image:
-        conic-gradient(from 85deg at bottom 23% right 45%, mat.get-color-from-palette($sheetient-primary, 300) 90deg, transparent 90deg),
-        conic-gradient(from 80deg at bottom 15% right 50%, mat.get-color-from-palette($sheetient-primary, 400) 90deg, transparent 90deg),
+        conic-gradient(from 85deg at bottom 23% right 45%, mat.get-color-from-palette($sheetient-primary, 400) 90deg, transparent 90deg),
+        conic-gradient(from 80deg at bottom 15% right 50%, mat.get-color-from-palette($sheetient-primary, 500) 90deg, transparent 90deg),
         linear-gradient(
-            mat.get-color-from-palette($sheetient-primary, 400),
-            mat.get-color-from-palette($sheetient-primary, 400) 50%,
-            mat.get-color-from-palette($sheetient-primary, 100));
+            mat.get-color-from-palette($sheetient-primary, 500) 50%,
+            mat.get-color-from-palette($sheetient-primary, 200));
 }
 
 .login-container {

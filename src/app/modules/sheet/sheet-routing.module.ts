@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SheetComponent } from './components/sheet/sheet.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: SheetComponent,
+        component: DashboardComponent,
     },
 ];
 

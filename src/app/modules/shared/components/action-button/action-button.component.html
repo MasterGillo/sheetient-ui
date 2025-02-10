@@ -1,0 +1,15 @@
+<button mat-flat-button *ngIf="appearance === 'flat'" [color]="color" [type]="type" [disabled]="disabled">
+    {{ buttonText }}
+</button>
+
+<button mat-raised-button *ngIf="appearance === 'raised'" [color]="color" [type]="type" [disabled]="disabled">
+    {{ buttonText }}
+</button>
+
+<button mat-button *ngIf="!appearance" [color]="color" [type]="type" [disabled]="disabled">
+    {{ buttonText }}
+</button>
+
+<span #transcludedContainerRef hidden>
+    <ng-content></ng-content>
+</span>

@@ -22,13 +22,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 
 import { UnsubscriberComponent } from './components/unsubscriber/unsubscriber.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { SpinnerButtonComponent } from './components/spinner-button/spinner-button.component';
+import { ActionButtonComponent } from './components/action-button/action-button.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
-    declarations: [UnsubscriberComponent, ConfirmationDialogComponent, SpinnerButtonComponent],
+    declarations: [UnsubscriberComponent, ConfirmationDialogComponent, SpinnerButtonComponent, ActionButtonComponent],
     imports: [
         CommonModule,
         MatToolbarModule,
@@ -52,6 +55,8 @@ import { SpinnerButtonComponent } from './components/spinner-button/spinner-butt
         ScrollingModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
+        MatSelectModule,
+        MatDividerModule,
     ],
     exports: [
         CommonModule,
@@ -77,6 +82,8 @@ import { SpinnerButtonComponent } from './components/spinner-button/spinner-butt
         MatSnackBarModule,
         MatProgressSpinnerModule,
         SpinnerButtonComponent,
+        MatSelectModule,
+        ActionButtonComponent,
     ],
     providers: [
         {

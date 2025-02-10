@@ -13,8 +13,8 @@
                     : 'Already have an account? Click below to log in.'
             }}
         </p>
-        <button mat-raised-button color="accent" class="no-rounding" (click)="login = !login" [disabled]="loading">
-            {{ login ? 'Sign Up' : 'Log In' }}
-        </button>
+        <app-action-button appearance="raised" (click)="login = !login" [disabled]="loading">{{
+            login ? 'Sign Up' : 'Log In'
+        }}</app-action-button>
     </div>
 </div>

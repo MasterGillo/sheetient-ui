@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { AccessTokenResponseDto } from 'src/app/models/auth/access-token-response-dto.interface';
 import { LoginRequest } from 'src/app/models/auth/login-request.interface';
 import { RegisterRequest } from 'src/app/models/auth/register-request.interface';
@@ -50,16 +50,16 @@ export class AuthService {
 
     logout(): void {
         localStorage.clear();
-        this.router.navigate(['']);
+        this.router.navigate(['home']);
     }
 
     refresh(): Observable<AccessTokenResponseDto | null> {
+        this.isRefreshing = true;
         const httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
             withCredentials: true,
         };
 
-        this.isRefreshing = true;
         return this.httpClient
             .post<AccessTokenResponseDto>('http://localhost:5008/api/auth/refresh', '', httpOptions)
             .pipe(
@@ -67,9 +67,9 @@ export class AuthService {
                     this.isRefreshing = false;
                     localStorage.setItem('accessToken', response.accessToken);
                 }),
-                catchError(() => {
+                catchError((error: HttpErrorResponse) => {
                     this.isRefreshing = false;
-                    return of(null);
+                    return throwError(() => error);
                 })
             );
     }

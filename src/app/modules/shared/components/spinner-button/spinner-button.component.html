@@ -2,7 +2,7 @@
     <div class="spinner-container" *ngIf="isSpinning">
         <mat-spinner class="spinner" [color]="color" diameter="30"></mat-spinner>
     </div>
-    <button class="no-rounding" mat-flat-button [color]="color" [type]="type" [disabled]="isSpinning">
+    <app-action-button mat-flat-button [color]="color" [type]="type" [disabled]="isSpinning" appearance="flat">
         <ng-content></ng-content>
-    </button>
+    </app-action-button>
 </div>

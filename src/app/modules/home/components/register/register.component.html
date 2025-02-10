@@ -1,4 +1,4 @@
-<div class="card-container mat-elevation-z1">
+<div class="sheetient-card mat-elevation-z1">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="card-header">Sign Up</div>
         <div class="card-body">
@@ -31,7 +31,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div class="card-buttons">
+        <div class="card-footer">
             <app-spinner-button color="accent" type="submit" [isSpinning]="isSigningUp">Sign Up</app-spinner-button>
         </div>
     </form>

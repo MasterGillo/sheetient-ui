@@ -1,5 +1,5 @@
 <div class="login-container">
-    <div class="card-container mat-elevation-z3">
+    <div class="sheetient-card mat-elevation-z3">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="card-header">Log In</div>
             <div class="card-body">
@@ -32,14 +32,13 @@
                     <mat-checkbox class="checkbox-accent-text" color="accent" formControlName="rememberMe">
                         Remember Me
                     </mat-checkbox>
-                    <button class="forgot-password" mat-button color="accent">Forgot Password?</button>
+                    <app-action-button color="accent">Forgot Password?</app-action-button>
                 </div>
             </div>
-            <div class="card-buttons">
+            <div class="card-footer">
                 <app-spinner-button color="accent" type="submit" [isSpinning]="isLoggingIn">Log In</app-spinner-button>
             </div>
         </form>
     </div>
-
     <div class="error-message mat-elevation-z3" *ngIf="errorMessage">{{ errorMessage }}</div>
 </div>
