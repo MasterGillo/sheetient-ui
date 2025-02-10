@@ -19,6 +19,7 @@ import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubsc
     selector: 'app-page',
     templateUrl: './page.component.html',
     styleUrls: ['./page.component.scss'],
+    standalone: false,
 })
 export class PageComponent extends UnsubscriberComponent implements AfterViewInit {
     @Input() page: PageInterface;

@@ -6,6 +6,7 @@ import { ConfirmationDialogData } from 'src/app/models/confirmation-dialog-data.
     selector: 'app-confirmation-dialog',
     templateUrl: './confirmation-dialog.component.html',
     styleUrls: ['./confirmation-dialog.component.scss'],
+    standalone: false,
 })
 export class ConfirmationDialogComponent {
     constructor(

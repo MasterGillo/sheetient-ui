@@ -5,6 +5,7 @@ import { FieldType } from 'src/app/models/field-type.enum';
     selector: 'app-field-list-dialog',
     templateUrl: './field-list-dialog.component.html',
     styleUrls: ['./field-list-dialog.component.scss'],
+    standalone: false,
 })
 export class FieldListDialogComponent {
     @Output() addNewField = new EventEmitter<FieldType>();

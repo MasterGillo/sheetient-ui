@@ -12,6 +12,7 @@ import { UsernameValidator } from 'src/app/validators/username.validator';
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
+    standalone: false,
 })
 export class RegisterComponent implements OnInit {
     @Output() signingUp = new EventEmitter<boolean>();

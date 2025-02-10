@@ -6,6 +6,7 @@ import { PageInterface } from 'src/app/models/page.interface';
     selector: 'app-page-options',
     templateUrl: './page-options.component.html',
     styleUrls: ['./page-options.component.scss'],
+    standalone: false,
 })
 export class PageOptionsComponent implements OnInit, OnChanges {
     @Input() page: PageInterface;

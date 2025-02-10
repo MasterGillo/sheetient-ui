@@ -14,6 +14,7 @@ import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubsc
     selector: 'app-options-sidebar',
     templateUrl: './options-sidebar.component.html',
     styleUrls: ['./options-sidebar.component.scss'],
+    standalone: false,
 })
 export class OptionsSidebarComponent extends UnsubscriberComponent implements OnInit {
     private _sheet: SheetInterface;

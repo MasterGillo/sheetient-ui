@@ -28,6 +28,7 @@ import { FieldListDialogComponent } from '../field-list-dialog/field-list-dialog
     selector: 'app-sheet',
     templateUrl: './sheet.component.html',
     styleUrls: ['./sheet.component.scss'],
+    standalone: false,
 })
 export class SheetComponent extends UnsubscriberComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('sheetName') sheetName: ElementRef;

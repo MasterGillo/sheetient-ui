@@ -1,7 +1,10 @@
 import { OnDestroy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Component({ template: '' })
+@Component({
+    template: '',
+    standalone: false,
+})
 export class UnsubscriberComponent implements OnDestroy {
     protected unsubscribe = new Subject<void>();
 

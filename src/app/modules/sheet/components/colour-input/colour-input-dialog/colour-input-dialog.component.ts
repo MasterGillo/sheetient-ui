@@ -6,6 +6,7 @@ import { Colour } from 'src/app/models/colour.type';
     selector: 'app-colour-input-dialog',
     templateUrl: './colour-input-dialog.component.html',
     styleUrls: ['./colour-input-dialog.component.scss'],
+    standalone: false,
 })
 export class ColourInputDialogComponent implements OnInit {
     @Input() colour: Colour | null;

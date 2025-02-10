@@ -19,6 +19,7 @@ import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubsc
             useExisting: ColourInputComponent,
         },
     ],
+    standalone: false,
 })
 export class ColourInputComponent extends UnsubscriberComponent implements OnInit, ControlValueAccessor {
     @Input() label: string;

@@ -5,6 +5,7 @@ import { LabelField } from 'src/app/models/label-field';
     selector: 'app-label-field',
     templateUrl: './label-field.component.html',
     styleUrls: ['./label-field.component.scss'],
+    standalone: false,
 })
 export class LabelFieldComponent {
     @Input() labelField: LabelField;

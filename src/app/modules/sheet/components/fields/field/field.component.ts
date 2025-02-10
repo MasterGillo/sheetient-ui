@@ -6,6 +6,7 @@ import { Field } from 'src/app/models/field.type';
     selector: 'app-field',
     templateUrl: './field.component.html',
     styleUrls: ['./field.component.scss'],
+    standalone: false,
 })
 export class FieldComponent implements OnInit {
     @Input() field: Field;

@@ -7,6 +7,7 @@ import { SheetService } from 'src/app/services/sheet/sheet.service';
     selector: 'app-new-sheet-dialog',
     templateUrl: './new-sheet-dialog.component.html',
     styleUrls: ['./new-sheet-dialog.component.scss'],
+    standalone: false,
 })
 export class NewSheetDialogComponent implements OnInit {
     form: FormGroup;

@@ -6,6 +6,7 @@ import { PageInterface } from 'src/app/models/page.interface';
     selector: 'app-grid-options',
     templateUrl: './grid-options.component.html',
     styleUrls: ['./grid-options.component.scss'],
+    standalone: false,
 })
 export class GridOptionsComponent implements OnInit, OnChanges {
     @Input() page: PageInterface;
