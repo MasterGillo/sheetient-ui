@@ -31,7 +31,7 @@ input[type=number] {
 }
 
 .section-container {
-    border: 1px solid mat.get-color-from-palette($sheetient-primary, 400);
+    border: 1px solid mat.m2-get-color-from-palette($sheetient-primary, 400);
     box-shadow: none !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
@@ -40,8 +40,8 @@ input[type=number] {
 .dialog-header {
     height: 2rem;
     text-transform: uppercase;
-    background-color: mat.get-color-from-palette($sheetient-primary, 500);
-    color: mat.get-contrast-color-from-palette($sheetient-primary, 500);
+    background-color: mat.m2-get-color-from-palette($sheetient-primary, 500);
+    color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 500);
     padding: 0 1.5rem;
     display: flex;
     align-items: center;
@@ -51,13 +51,13 @@ input[type=number] {
 
 .section-header {
     text-transform: uppercase;
-    background-color: mat.get-color-from-palette($sheetient-primary, 400);
-    color: mat.get-contrast-color-from-palette($sheetient-primary, 400);
+    background-color: mat.m2-get-color-from-palette($sheetient-primary, 400);
+    color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400);
     border-radius: 0 !important;
     padding: 0 1.5rem 0 1rem;
     &:hover,
     &:focus {
-        background-color: mat.get-color-from-palette(
+        background-color: mat.m2-get-color-from-palette(
             $sheetient-primary,
             400
         ) !important;
@@ -71,7 +71,7 @@ input[type=number] {
         top: -2px;
         transform-origin: 50% 12px;
         &::after {
-            color: mat.get-contrast-color-from-palette($sheetient-primary, 400) !important;
+            color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400) !important;
         }
     }
 }
@@ -117,7 +117,7 @@ input[type=number] {
 }
 
 ngx-mat-color-toggle mat-icon {
-    color: mat.get-color-from-palette($sheetient-accent, 500) !important;
+    color: mat.m2-get-color-from-palette($sheetient-accent, 500) !important;
 }
 
 .text-center {
@@ -162,7 +162,7 @@ mat-checkbox.checkbox-accent-text {
     div.mdc-form-field {
         font-weight: 500 !important;
         letter-spacing: .0125em;
-        color: mat.get-color-from-palette($sheetient-accent, 700) !important;
+        color: mat.m2-get-color-from-palette($sheetient-accent, 700) !important;
         div.mdc-checkbox {
             div.mdc-checkbox__background {
                 border-radius: 0;
@@ -179,15 +179,15 @@ mat-checkbox.checkbox-accent-text {
     }
     &.mat-mdc-checkbox-checked {
         label.mdc-label {
-            color: mat.get-color-from-palette($sheetient-accent, 700) !important;
+            color: mat.m2-get-color-from-palette($sheetient-accent, 700) !important;
         }
     }
 }
 
 .snack-bar-error {
     .mdc-snackbar__surface {
-        background-color: mat.get-color-from-palette($sheetient-warn, 800) !important;
-        color: mat.get-contrast-color-from-palette($sheetient-warn, 800) !important;
+        background-color: mat.m2-get-color-from-palette($sheetient-warn, 800) !important;
+        color: mat.m2-get-contrast-color-from-palette($sheetient-warn, 800) !important;
     }
     .mdc-snackbar__action {
         color: white !important;
@@ -198,8 +198,8 @@ mat-checkbox.checkbox-accent-text {
 }
 
 .error-message {
-    background-color: mat.get-color-from-palette($sheetient-warn, 800);
-    color: mat.get-contrast-color-from-palette($sheetient-warn, 800);
+    background-color: mat.m2-get-color-from-palette($sheetient-warn, 800);
+    color: mat.m2-get-contrast-color-from-palette($sheetient-warn, 800);
     height: 2.5rem;
     display: flex;
     align-items: center;

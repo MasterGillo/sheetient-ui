@@ -13,8 +13,8 @@
         align-items: center;
         padding: 0 1.5rem;
         justify-content: center;
-        background-color: mat.get-color-from-palette($sheetient-primary, 500);
-        color: mat.get-contrast-color-from-palette($sheetient-primary, 500);
+        background-color: mat.m2-get-color-from-palette($sheetient-primary, 500);
+        color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 500);
         .title {
             font-size: 32px;
             line-height: 32px;
@@ -38,8 +38,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: mat.get-color-from-palette($sheetient-primary, 600);
-                color: mat.get-contrast-color-from-palette($sheetient-primary, 600);
+                background-color: mat.m2-get-color-from-palette($sheetient-primary, 600);
+                color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 600);
                 height: 3rem;
                 padding: 0 3rem;
 
@@ -80,7 +80,7 @@
                         font-size: 20px;
                         font-weight: 500;
                         margin-bottom: 0.5rem;
-                        color: mat.get-color-from-palette($sheetient-accent, 700);
+                        color: mat.m2-get-color-from-palette($sheetient-accent, 700);
                     }
                     .sheet-description {
                         color: rgba(0, 0, 0, 0.7);
