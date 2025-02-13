@@ -14,12 +14,13 @@ import { switchMap, tap } from 'rxjs/operators';
 import { Field } from 'src/app/models/field.type';
 import { Page } from 'src/app/models/page.model';
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-page',
     templateUrl: './page.component.html',
     styleUrls: ['./page.component.scss'],
-    standalone: false,
+    imports: [NgIf],
 })
 export class PageComponent extends UnsubscriberComponent implements AfterViewInit {
     @Input() page: Page;

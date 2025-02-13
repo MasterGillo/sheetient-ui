@@ -1,12 +1,26 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Colour } from 'src/app/models/colour.type';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { NgIf } from '@angular/common';
+import { MatSlider, MatSliderThumb } from '@angular/material/slider';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'app-colour-input-dialog',
     templateUrl: './colour-input-dialog.component.html',
     styleUrls: ['./colour-input-dialog.component.scss'],
-    standalone: false,
+    imports: [
+        MatCard,
+        MatCardContent,
+        NgIf,
+        ReactiveFormsModule,
+        MatSlider,
+        MatSliderThumb,
+        MatFormField,
+        MatInput,
+    ],
 })
 export class ColourInputDialogComponent implements OnInit {
     @Input() colour: Colour | null;

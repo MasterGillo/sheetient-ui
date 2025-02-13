@@ -31,7 +31,6 @@ import { ActionButtonComponent } from './components/action-button/action-button.
 import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
-    declarations: [UnsubscriberComponent, ConfirmationDialogComponent, SpinnerButtonComponent, ActionButtonComponent],
     imports: [
         CommonModule,
         MatToolbarModule,
@@ -57,6 +56,7 @@ import { MatDividerModule } from '@angular/material/divider';
         MatProgressSpinnerModule,
         MatSelectModule,
         MatDividerModule,
+        UnsubscriberComponent, ConfirmationDialogComponent, SpinnerButtonComponent, ActionButtonComponent,
     ],
     exports: [
         CommonModule,

@@ -3,12 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { Sheet } from 'src/app/models/sheet.model';
 import { NewSheetDialogComponent } from '../new-sheet-dialog/new-sheet-dialog.component';
 import { SheetService } from 'src/app/services/sheet/sheet.service';
+import { ActionButtonComponent } from '../../shared/components/action-button/action-button.component';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    standalone: false,
+    imports: [ActionButtonComponent, NgFor],
 })
 export class DashboardComponent implements OnInit {
     sheets: Sheet[] = [

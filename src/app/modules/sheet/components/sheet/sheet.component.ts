@@ -1,4 +1,4 @@
-import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDrag, CdkDragHandle, CdkDragPreview } from '@angular/cdk/drag-drop';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
@@ -14,7 +14,7 @@ import {
     ViewChildren,
     ViewContainerRef,
 } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 import { filter, first, merge, takeUntil } from 'rxjs';
 import { FieldType } from 'src/app/models/field-type.enum';
@@ -23,12 +23,43 @@ import { Sheet } from 'src/app/models/sheet.model';
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
 import { SheetService } from 'src/app/services/sheet/sheet.service';
 import { FieldListDialogComponent } from '../field-list-dialog/field-list-dialog.component';
+import { MatToolbar } from '@angular/material/toolbar';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
+import { OptionsSidebarComponent } from '../options-sidebar/options-sidebar/options-sidebar.component';
+import { MatRipple } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { PageComponent } from '../page/page.component';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-sheet',
     templateUrl: './sheet.component.html',
     styleUrls: ['./sheet.component.scss'],
-    standalone: false,
+    imports: [
+        MatToolbar,
+        MatTooltip,
+        NgIf,
+        MatInput,
+        ReactiveFormsModule,
+        MatSidenavContainer,
+        MatSidenav,
+        OptionsSidebarComponent,
+        MatSidenavContent,
+        CdkDropList,
+        NgFor,
+        MatRipple,
+        CdkDrag,
+        MatIcon,
+        CdkDragHandle,
+        CdkDragPreview,
+        PageComponent,
+        CdkScrollable,
+        MatButton,
+        AsyncPipe,
+    ],
 })
 export class SheetComponent extends UnsubscriberComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('sheetName') sheetName: ElementRef;

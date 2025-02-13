@@ -1,12 +1,26 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Page } from 'src/app/models/page.model';
+import { NgIf } from '@angular/common';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { ColourInputComponent } from '../../colour-input/colour-input/colour-input.component';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'app-grid-options',
     templateUrl: './grid-options.component.html',
     styleUrls: ['./grid-options.component.scss'],
-    standalone: false,
+    imports: [
+        NgIf,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatSuffix,
+        ColourInputComponent,
+        MatSlideToggle,
+    ],
 })
 export class GridOptionsComponent implements OnInit, OnChanges {
     @Input() page: Page;

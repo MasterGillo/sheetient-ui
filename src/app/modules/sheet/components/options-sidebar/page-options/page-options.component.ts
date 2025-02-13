@@ -1,12 +1,26 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Page } from 'src/app/models/page.model';
+import { NgIf } from '@angular/common';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { ColourInputComponent } from '../../colour-input/colour-input/colour-input.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-page-options',
     templateUrl: './page-options.component.html',
     styleUrls: ['./page-options.component.scss'],
-    standalone: false,
+    imports: [
+        NgIf,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ColourInputComponent,
+        MatSuffix,
+        MatButton,
+    ],
 })
 export class PageOptionsComponent implements OnInit, OnChanges {
     @Input() page: Page;

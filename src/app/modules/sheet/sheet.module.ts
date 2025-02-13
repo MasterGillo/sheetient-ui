@@ -18,8 +18,7 @@ import { NewSheetDialogComponent } from './new-sheet-dialog/new-sheet-dialog.com
 import { SheetRoutingModule } from './sheet-routing.module';
 
 @NgModule({
-    declarations: [
-        SheetComponent,
+    imports: [CommonModule, SheetRoutingModule, SharedModule, SheetComponent,
         OptionsSidebarComponent,
         PageComponent,
         PageOptionsComponent,
@@ -31,8 +30,6 @@ import { SheetRoutingModule } from './sheet-routing.module';
         LabelFieldComponent,
         FieldComponent,
         DashboardComponent,
-        NewSheetDialogComponent,
-    ],
-    imports: [CommonModule, SheetRoutingModule, SharedModule],
+        NewSheetDialogComponent],
 })
 export class SheetModule {}

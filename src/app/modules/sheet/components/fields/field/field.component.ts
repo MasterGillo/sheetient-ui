@@ -1,12 +1,14 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FieldType } from 'src/app/models/field-type.enum';
 import { Field } from 'src/app/models/field.type';
+import { NgIf } from '@angular/common';
+import { LabelFieldComponent } from '../label-field/label-field.component';
 
 @Component({
     selector: 'app-field',
     templateUrl: './field.component.html',
     styleUrls: ['./field.component.scss'],
-    standalone: false,
+    imports: [NgIf, LabelFieldComponent],
 })
 export class FieldComponent implements OnInit {
     @Input() field: Field;

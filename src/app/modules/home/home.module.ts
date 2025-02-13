@@ -7,7 +7,6 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
-    declarations: [LoginComponent, HomeComponent, RegisterComponent],
-    imports: [HomeRoutingModule, SharedModule],
+    imports: [HomeRoutingModule, SharedModule, LoginComponent, HomeComponent, RegisterComponent],
 })
 export class HomeModule {}

@@ -1,18 +1,35 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, AbstractControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IdentityError } from 'src/app/models/identity-error.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { NoWhiteSpaceValidator } from 'src/app/validators/no-white-space.validator';
 import { UsernameValidator } from 'src/app/validators/username.validator';
+import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { NgIf } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { SpinnerButtonComponent } from '../../../shared/components/spinner-button/spinner-button.component';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
-    standalone: false,
+    imports: [
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        NgIf,
+        MatError,
+        MatIconButton,
+        MatSuffix,
+        MatIcon,
+        SpinnerButtonComponent,
+    ],
 })
 export class RegisterComponent implements OnInit {
     @Output() signingUp = new EventEmitter<boolean>();

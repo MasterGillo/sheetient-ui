@@ -2,11 +2,14 @@ import { Component, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } fro
 import { ColourInputDialogComponent } from '../colour-input-dialog/colour-input-dialog.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Overlay } from '@angular/cdk/overlay';
-import { MatFormField } from '@angular/material/form-field';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { MatFormField, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Colour } from 'src/app/models/colour.type';
 import { filter, first, merge, takeUntil } from 'rxjs';
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
+import { MatInput } from '@angular/material/input';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-colour-input',
@@ -19,7 +22,16 @@ import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubsc
             useExisting: ColourInputComponent,
         },
     ],
-    standalone: false,
+    imports: [
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        MatPrefix,
+        MatIconButton,
+        MatSuffix,
+        MatIcon,
+    ],
 })
 export class ColourInputComponent extends UnsubscriberComponent implements OnInit, ControlValueAccessor {
     @Input() label: string;

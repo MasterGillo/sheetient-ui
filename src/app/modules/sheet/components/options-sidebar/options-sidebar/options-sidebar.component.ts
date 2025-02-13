@@ -9,12 +9,23 @@ import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/c
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
 import { OptionsService } from 'src/app/services/options/options.service';
 import { SheetService } from 'src/app/services/sheet/sheet.service';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
+import { MatIcon } from '@angular/material/icon';
+import { PageOptionsComponent } from '../page-options/page-options.component';
+import { GridOptionsComponent } from '../grid-options/grid-options.component';
 
 @Component({
     selector: 'app-options-sidebar',
     templateUrl: './options-sidebar.component.html',
     styleUrls: ['./options-sidebar.component.scss'],
-    standalone: false,
+    imports: [
+        MatAccordion,
+        MatExpansionPanel,
+        MatExpansionPanelHeader,
+        MatIcon,
+        PageOptionsComponent,
+        GridOptionsComponent,
+    ],
 })
 export class OptionsSidebarComponent extends UnsubscriberComponent implements OnInit {
     private _sheet: Sheet;
