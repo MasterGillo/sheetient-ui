@@ -1,5 +1,5 @@
 import { CdkDragDrop, CdkDragMove } from '@angular/cdk/drag-drop';
-import { OverlayRef, Overlay } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
     AfterViewInit,
@@ -14,14 +14,14 @@ import {
     ViewChildren,
     ViewContainerRef,
 } from '@angular/core';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
-import { first, takeUntil, merge, filter } from 'rxjs';
+import { filter, first, merge, takeUntil } from 'rxjs';
 import { FieldType } from 'src/app/models/field-type.enum';
 import { Field } from 'src/app/models/field.type';
-import { SheetInterface } from 'src/app/models/sheet.interface';
-import { SheetService } from 'src/app/services/sheet/sheet.service';
+import { Sheet } from 'src/app/models/sheet.model';
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
+import { SheetService } from 'src/app/services/sheet/sheet.service';
 import { FieldListDialogComponent } from '../field-list-dialog/field-list-dialog.component';
 
 @Component({
@@ -38,7 +38,7 @@ export class SheetComponent extends UnsubscriberComponent implements OnInit, Aft
     @ViewChildren('dragPreview') dragPreviews: QueryList<ElementRef>;
 
     sheetNameWidth = 0;
-    sheet: SheetInterface;
+    sheet: Sheet;
     sheetNameInnerHtml: string;
     sheetNameControl: FormControl = this.formBuilder.control('', [Validators.required]);
     editingSheetName: boolean;
@@ -59,10 +59,10 @@ export class SheetComponent extends UnsubscriberComponent implements OnInit, Aft
     }
 
     ngOnInit(): void {
-        this.sheetService.sheet$.pipe(first(), takeUntil(this.unsubscribe)).subscribe((sheet: SheetInterface) => {
+        this.sheetService.sheet$.pipe(first(), takeUntil(this.unsubscribe)).subscribe((sheet: Sheet) => {
             this.sheetNameControl.setValue(sheet.name);
         });
-        this.sheetService.sheet$.pipe(takeUntil(this.unsubscribe)).subscribe((sheet: SheetInterface) => {
+        this.sheetService.sheet$.pipe(takeUntil(this.unsubscribe)).subscribe((sheet: Sheet) => {
             this.sheetNameInnerHtml = sheet.name.replace(/\s/g, '&nbsp;');
         });
         this.sheetNameControl.valueChanges.subscribe((value: string) => {

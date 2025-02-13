@@ -62,37 +62,37 @@ export class SheetService {
         }
     }
 
-    // updateCurrentPage(pageChanges: Partial<Page>): void {
+    updateCurrentPage(pageChanges: Partial<Page>): void {
     //     this.updatePage(this._currentPageId, pageChanges);
-    // }
+    }
 
-    // updatePage(pageId: number, pageChanges: Partial<Page>): void {
-    //     const index = this._pages.findIndex((page) => page.id === pageId);
-    //     if (index != null) {
-    //         const grid = { ...this._pages[index].grid };
-    //         this._pages[index] = { ...this._pages[index], ...pageChanges };
-    //         this._pages[index].grid = { ...grid, ...pageChanges.grid };
+    updatePage(pageId: number, pageChanges: Partial<Page>): void {
+        // const index = this._pages.findIndex((page) => page.id === pageId);
+        // if (index != null) {
+        //     const grid = { ...this._pages[index].grid };
+        //     this._pages[index] = { ...this._pages[index], ...pageChanges };
+        //     this._pages[index].grid = { ...grid, ...pageChanges.grid };
 
-    //         this.pages$.next(this._pages);
+        //     this.pages$.next(this._pages);
 
-    //         if (this._currentPageId === pageId) {
-    //             this.currentPage$.next(this._pages[index]);
-    //         }
-    //     }
-    // }
+        //     if (this._currentPageId === pageId) {
+        //         this.currentPage$.next(this._pages[index]);
+        //     }
+        // }
+    }
 
-    // addPage(): void {
-    //     const newId = Math.max(...this._pages.map((page) => page.id)) + 1;
-    //     this._sheet.pageCount++;
-    //     this.sheet$.next(this._sheet);
-    //     const newPage = JSON.parse(JSON.stringify(this.currentPage$.getValue()));
-    //     newPage.id = newId;
-    //     newPage.name = 'Page ' + this._sheet.pageCount;
-    //     newPage.order = this._pages.length;
-    //     this._pages.push(newPage);
-    //     this.pages$.next(this._pages);
-    //     this.switchCurrentPage(newId);
-    // }
+    addPage(): void {
+        // const newId = Math.max(...this._pages.map((page) => page.id)) + 1;
+        // this._sheet.pageCount++;
+        // this.sheet$.next(this._sheet);
+        // const newPage = JSON.parse(JSON.stringify(this.currentPage$.getValue()));
+        // newPage.id = newId;
+        // newPage.name = 'Page ' + this._sheet.pageCount;
+        // newPage.order = this._pages.length;
+        // this._pages.push(newPage);
+        // this.pages$.next(this._pages);
+        // this.switchCurrentPage(newId);
+    }
 
     reorderPages(previousIndex: number, newIndex: number): void {
         moveItemInArray(this._pages, previousIndex, newIndex);

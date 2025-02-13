@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { first, takeUntil } from 'rxjs';
-import { OptionsInterface } from 'src/app/models/options.interface';
-import { PageInterface } from 'src/app/models/page.interface';
-import { SheetInterface } from 'src/app/models/sheet.interface';
-import { OptionsService } from 'src/app/services/options/options.service';
-import { SheetService } from 'src/app/services/sheet/sheet.service';
 import { ConfirmationDialogData } from 'src/app/models/confirmation-dialog-data.interface';
+import { OptionsInterface } from 'src/app/models/options.interface';
+import { Page } from 'src/app/models/page.model';
+import { Sheet } from 'src/app/models/sheet.model';
 import { ConfirmationDialogComponent } from 'src/app/modules/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
+import { OptionsService } from 'src/app/services/options/options.service';
+import { SheetService } from 'src/app/services/sheet/sheet.service';
 
 @Component({
     selector: 'app-options-sidebar',
@@ -17,23 +17,23 @@ import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubsc
     standalone: false,
 })
 export class OptionsSidebarComponent extends UnsubscriberComponent implements OnInit {
-    private _sheet: SheetInterface;
-    private _currentPage: PageInterface;
+    private _sheet: Sheet;
+    private _currentPage: Page;
 
     canDeletePage: boolean;
     optionsConfig: OptionsInterface;
 
-    get sheet(): SheetInterface {
+    get sheet(): Sheet {
         return this._sheet;
     }
-    set sheet(value: Partial<SheetInterface>) {
+    set sheet(value: Partial<Sheet>) {
         this.sheetService.updateSheet(value);
     }
 
-    get currentPage(): PageInterface {
+    get currentPage(): Page {
         return this._currentPage;
     }
-    set currentPage(value: Partial<PageInterface>) {
+    set currentPage(value: Partial<Page>) {
         this.sheetService.updatePage(this._currentPage.id, value);
     }
 
@@ -49,15 +49,15 @@ export class OptionsSidebarComponent extends UnsubscriberComponent implements On
         this.optionsService.optionsConfig$.pipe(first()).subscribe((optionsConfig: OptionsInterface) => {
             this.optionsConfig = optionsConfig;
         });
-        this.sheetService.currentPage$.pipe(takeUntil(this.unsubscribe)).subscribe((page: PageInterface) => {
+        this.sheetService.currentPage$.pipe(takeUntil(this.unsubscribe)).subscribe((page: Page) => {
             this._currentPage = page;
         });
         this.sheetService.sheet$
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe((sheet: SheetInterface) => (this._sheet = sheet));
+            .subscribe((sheet: Sheet) => (this._sheet = sheet));
         this.sheetService.pages$
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe((pages: PageInterface[]) => (this.canDeletePage = pages.length > 1));
+            .subscribe((pages: Page[]) => (this.canDeletePage = pages.length > 1));
     }
 
     handleExpansionChange(sectionName: string, open: boolean): void {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PageInterface } from 'src/app/models/page.interface';
+import { Page } from 'src/app/models/page.model';
 
 @Component({
     selector: 'app-page-options',
@@ -9,9 +9,9 @@ import { PageInterface } from 'src/app/models/page.interface';
     standalone: false,
 })
 export class PageOptionsComponent implements OnInit, OnChanges {
-    @Input() page: PageInterface;
+    @Input() page: Page;
     @Input() canDelete: boolean;
-    @Output() pageChange = new EventEmitter<Partial<PageInterface>>();
+    @Output() pageChange = new EventEmitter<Partial<Page>>();
     @Output() deletePage = new EventEmitter<void>();
 
     form: FormGroup;
@@ -40,12 +40,12 @@ export class PageOptionsComponent implements OnInit, OnChanges {
             colour: [this.page.colour, [Validators.required]],
             height: [this.page.height, [Validators.required]],
             width: [this.page.width, [Validators.required]],
-            grid: this.formBuilder.group({
-                showGrid: [this.page.grid.showGrid, [Validators.required]],
-                spacingX: [this.page.grid.spacingX, [Validators.required]],
-                spacingY: [this.page.grid.spacingY, [Validators.required]],
-                gridColour: [this.page.grid.gridColour, [Validators.required]],
-            }),
+            // grid: this.formBuilder.group({
+            //     showGrid: [this.page.grid.showGrid, [Validators.required]],
+            //     spacingX: [this.page.grid.spacingX, [Validators.required]],
+            //     spacingY: [this.page.grid.spacingY, [Validators.required]],
+            //     gridColour: [this.page.grid.gridColour, [Validators.required]],
+            // }),
         });
 
         this.form.valueChanges.subscribe((value) => {

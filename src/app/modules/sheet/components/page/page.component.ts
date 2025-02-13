@@ -12,7 +12,7 @@ import {
 import { EMPTY, fromEvent, merge } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { Field } from 'src/app/models/field.type';
-import { PageInterface } from 'src/app/models/page.interface';
+import { Page } from 'src/app/models/page.model';
 import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubscriber/unsubscriber.component';
 
 @Component({
@@ -22,7 +22,7 @@ import { UnsubscriberComponent } from 'src/app/modules/shared/components/unsubsc
     standalone: false,
 })
 export class PageComponent extends UnsubscriberComponent implements AfterViewInit {
-    @Input() page: PageInterface;
+    @Input() page: Page;
     @Input() fields: Field[];
     @Input() newField: Field | null;
     @Output() newFieldAdded = new EventEmitter<Field>();
@@ -42,19 +42,21 @@ export class PageComponent extends UnsubscriberComponent implements AfterViewIni
     private clientPosY: number;
 
     get backgroundSize(): string {
-        return `${this.page.grid.spacingX}px ${this.page.grid.spacingY}px`;
+        //return `${this.page.grid.spacingX}px ${this.page.grid.spacingY}px`;
+        return '';
     }
 
     get backgroundImage(): string {
-        if (this.page.grid.gridColour) {
-            return `repeating-linear-gradient(${this.backgroundColour} 1px 2px, transparent 5px 8px),
-                    repeating-linear-gradient(90deg, ${this.backgroundColour} 1px 2px, transparent 5px 8px),
+        return '';
+        // if (this.page.grid.gridColour) {
+        //     return `repeating-linear-gradient(${this.backgroundColour} 1px 2px, transparent 5px 8px),
+        //             repeating-linear-gradient(90deg, ${this.backgroundColour} 1px 2px, transparent 5px 8px),
 
-                    repeating-linear-gradient(#${this.page.grid.gridColour} 0 1px, transparent 1px 100%),
-                    repeating-linear-gradient(90deg, #${this.page.grid.gridColour} 0 1px, transparent 1px 100%)`;
-        } else {
-            return 'none';
-        }
+        //             repeating-linear-gradient(#${this.page.grid.gridColour} 0 1px, transparent 1px 100%),
+        //             repeating-linear-gradient(90deg, #${this.page.grid.gridColour} 0 1px, transparent 1px 100%)`;
+        // } else {
+        //     return 'none';
+        // }
     }
 
     get backgroundColour(): string {
@@ -126,8 +128,8 @@ export class PageComponent extends UnsubscriberComponent implements AfterViewIni
             const pageX = this.clientPosX - (pageBoundingRect.left + 2);
             const pageY = this.clientPosY - (pageBoundingRect.top + 2);
 
-            this.newFieldX = Math.floor(pageX / this.page.grid.spacingX) * this.page.grid.spacingX;
-            this.newFieldY = Math.floor(pageY / this.page.grid.spacingY) * this.page.grid.spacingY;
+            // this.newFieldX = Math.floor(pageX / this.page.grid.spacingX) * this.page.grid.spacingX;
+            // this.newFieldY = Math.floor(pageY / this.page.grid.spacingY) * this.page.grid.spacingY;
 
             left = this.newFieldX + pageBoundingRect.left + 2;
             top = this.newFieldY + pageBoundingRect.top + 2;
