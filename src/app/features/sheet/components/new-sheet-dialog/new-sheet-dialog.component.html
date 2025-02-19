@@ -2,23 +2,18 @@
     <form [formGroup]="form" (submit)="submit()">
         <div class="card-header">Create New Sheet</div>
         <div class="card-body">
-            <mat-form-field class="no-rounding">
+            <mat-form-field>
                 <mat-label>Sheet Name</mat-label>
                 <input matInput maxlength="100" formControlName="sheetName" />
-                <mat-error *ngIf="sheetNameControl.errors?.['required']"> Required field. </mat-error>
-            </mat-form-field>
-            <mat-form-field class="no-rounding">
-                <mat-label>Sheet Description</mat-label>
-                <input matInput maxlength="250" formControlName="description" />
-                <mat-error *ngIf="sheetNameControl.errors?.['required']"> Required field. </mat-error>
+                <mat-error *ngIf="sheetNameControl.errors?.['required']">Required field.</mat-error>
             </mat-form-field>
             <div class="control-row">
-                <mat-form-field class="no-rounding">
+                <mat-form-field>
                     <mat-label>Page Height</mat-label>
                     <input inputmode="numeric" type="number" matInput formControlName="pageHeight" />
                     <span matTextSuffix>pixels</span>
                 </mat-form-field>
-                <mat-form-field class="no-rounding">
+                <mat-form-field>
                     <mat-label>Page Width</mat-label>
                     <input inputmode="numeric" type="number" matInput formControlName="pageWidth" />
                     <span matTextSuffix>pixels</span>
@@ -26,8 +21,10 @@
             </div>
         </div>
         <div class="card-footer">
-            <app-action-button mat-dialog-close>Cancel</app-action-button>
-            <app-action-button appearance="flat" type="submit">Create</app-action-button>
+            <button mat-button color="accent" [disabled]="isSaving" (click)="cancelClicked()">Cancel</button>
+            <app-spinner-button color="accent" appearance="flat" [isSpinning]="isSaving">
+                <button mat-flat-button color="accent" type="submit" #button>Create</button>
+            </app-spinner-button>
         </div>
     </form>
 </div>

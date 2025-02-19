@@ -23,5 +23,10 @@
     "editor.formatOnSave": false
   },
   "editor.suggest.snippetsPreventQuickSuggestions": false,
-  "editor.inlineSuggest.enabled": true
+"editor.inlineSuggest.enabled": true,
+"cSpell.words": [
+    "Sheetient",
+    "TTRPG",
+    "Unsubscriber"
+]
 }

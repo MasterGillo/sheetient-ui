@@ -2,14 +2,14 @@ import { NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatIconButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ActionButtonComponent } from '../../../../shared/components/action-button/action-button.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { SpinnerButtonComponent } from '../../../../shared/components/spinner-button/spinner-button.component';
 
 @Component({
@@ -27,8 +27,8 @@ import { SpinnerButtonComponent } from '../../../../shared/components/spinner-bu
         MatSuffix,
         MatIcon,
         MatCheckbox,
-        ActionButtonComponent,
         SpinnerButtonComponent,
+        MatButton,
     ],
 })
 export class LoginComponent implements OnInit {
@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
 
     hidePassword = true;
     form: FormGroup;
-    errorMessage: string;
 
     get usernameOrEmailControl(): AbstractControl {
         return this.form.controls['usernameOrEmail'];
@@ -62,6 +61,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
+        private errorHandlerService: ErrorHandlerService,
         private router: Router
     ) {}
 
@@ -81,31 +81,23 @@ export class LoginComponent implements OnInit {
                 delete this.passwordControl.errors?.['loginFailed'];
                 this.passwordControl.updateValueAndValidity();
             }
-            this.errorMessage = '';
         });
     }
 
     onSubmit(): void {
         if (this.form.valid) {
             this.isLoggingIn = true;
-            this.errorMessage = '';
             this.authService.login(this.form.value).subscribe({
                 next: () => {
-                    this.router.navigate(['']);
+                    this.router.navigate(['/home']);
                 },
                 error: (error: HttpErrorResponse) => {
                     this.isLoggingIn = false;
-                    if (error.status === 0) {
-                        this.errorMessage = 'Unknown problem connecting to server.';
-                    } else if (error.status === 401) {
+                    if (error.status === 401) {
                         this.usernameOrEmailControl.setErrors({ loginFailed: true }, { emitEvent: false });
                         this.passwordControl.setErrors({ loginFailed: true }, { emitEvent: false });
-                        this.errorMessage = error.error;
-                    } else if (error.status === 403) {
-                        this.errorMessage = error.error;
-                    } else {
-                        this.errorMessage = `${error.status} error. Login failed.`;
                     }
+                    this.errorHandlerService.handle(error, 'Log in failed');
                 },
             });
         }

@@ -1,12 +1,17 @@
 import { NgIf } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogClose } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { takeUntil } from 'rxjs';
 import { Sheet } from 'src/app/models/sheet.model';
-import { SheetService } from 'src/app/services/sheet/sheet.service';
-import { ActionButtonComponent } from '../../../../shared/components/action-button/action-button.component';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { SheetService } from 'src/app/services/sheet.service';
+import { SpinnerButtonComponent } from 'src/app/shared/components/spinner-button/spinner-button.component';
+import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
 
 @Component({
     selector: 'app-new-sheet-dialog',
@@ -20,11 +25,27 @@ import { ActionButtonComponent } from '../../../../shared/components/action-butt
         NgIf,
         MatError,
         MatSuffix,
-        ActionButtonComponent,
-        MatDialogClose,
+        MatButton,
+        SpinnerButtonComponent,
     ],
 })
-export class NewSheetDialogComponent implements OnInit {
+export class NewSheetDialogComponent extends UnsubscriberComponent implements OnInit {
+    private _isSaving: boolean;
+
+    get isSaving(): boolean {
+        return this._isSaving;
+    }
+
+    private set isSaving(value: boolean) {
+        this._isSaving = value;
+        this.dialogRef.disableClose = value;
+        if (value) {
+            this.form.disable();
+        } else {
+            this.form.enable();
+        }
+    }
+
     form: FormGroup;
 
     get sheetNameControl(): AbstractControl<string> {
@@ -39,8 +60,12 @@ export class NewSheetDialogComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private sheetService: SheetService
-    ) {}
+        private sheetService: SheetService,
+        private dialogRef: MatDialogRef<NewSheetDialogComponent>,
+        private errorHandlerService: ErrorHandlerService
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.form = this.formBuilder.group({
@@ -52,12 +77,28 @@ export class NewSheetDialogComponent implements OnInit {
 
     submit(): void {
         if (this.form.valid) {
+            this.isSaving = true;
             const newSheet = new Sheet(
                 this.sheetNameControl.value,
                 this.pageHeightControl.value,
                 this.pageWidthControl.value
             );
-            this.sheetService.createSheet(newSheet).subscribe((x) => console.log(x));
+            this.sheetService
+                .createSheet(newSheet)
+                .pipe(takeUntil(this.unsubscribe))
+                .subscribe({
+                    next: (sheetId: number) => this.dialogRef.close(sheetId),
+                    error: (error: HttpErrorResponse) => {
+                        this.errorHandlerService.handle(error);
+                        this.isSaving = false;
+                    },
+                });
+        }
+    }
+
+    cancelClicked(): void {
+        if (!this.isSaving) {
+            this.dialogRef.close();
         }
     }
 }

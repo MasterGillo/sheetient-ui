@@ -5,6 +5,7 @@
 
 @include mat.typography-hierarchy($sheetient-typography);
 
+@import './material.scss';
 @import './card.scss';
 
 html, body { height: 100%; }
@@ -148,66 +149,4 @@ button.mat-accent {
 
 .no-padding {
     padding: 0 !important;
-}
-
-.no-rounding
-{
-    border-radius: 0 !important;
-    div.mat-mdc-text-field-wrapper div.mat-mdc-form-field-flex div.mdc-notched-outline * {
-        border-radius: 0 !important;
-    }
-}
-
-mat-checkbox.checkbox-accent-text {
-    div.mdc-form-field {
-        font-weight: 500 !important;
-        letter-spacing: .0125em;
-        color: mat.m2-get-color-from-palette($sheetient-accent, 700) !important;
-        div.mdc-checkbox {
-            div.mdc-checkbox__background {
-                border-radius: 0;
-                svg.mdc-checkbox__checkmark {
-                    color: white;
-                }
-            }
-        }
-
-        label.mdc-label {
-            font-variant: small-caps;
-            color: rgba(0, 0, 0, 0.54);
-        }
-    }
-    &.mat-mdc-checkbox-checked {
-        label.mdc-label {
-            color: mat.m2-get-color-from-palette($sheetient-accent, 700) !important;
-        }
-    }
-}
-
-.snack-bar-error {
-    .mdc-snackbar__surface {
-        background-color: mat.m2-get-color-from-palette($sheetient-warn, 800) !important;
-        color: mat.m2-get-contrast-color-from-palette($sheetient-warn, 800) !important;
-    }
-    .mdc-snackbar__action {
-        color: white !important;
-        font-variant: small-caps;
-        letter-spacing: .0125em;
-        font-size: 16px;
-    }
-}
-
-.error-message {
-    background-color: mat.m2-get-color-from-palette($sheetient-warn, 800);
-    color: mat.m2-get-contrast-color-from-palette($sheetient-warn, 800);
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    padding-left: 1rem;
-}
-
-.sheetient-dialog {
-    div.mat-mdc-dialog-surface {
-        border-radius: 0;
-    }
 }

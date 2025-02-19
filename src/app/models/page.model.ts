@@ -4,7 +4,11 @@ export class Page {
     colour = 'ffffff';
     height = 1123;
     width = 794;
-    order = 0;
+    showGrid = false;
+    gridColour = '000000';
+    gridSpacingX = 20;
+    gridSpacingY = 20;
+    order = 1;
 
     constructor(name: string, height: number, width: number) {
         this.name = name;

@@ -56,10 +56,4 @@
     p {
         color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400);
     }
-
-    button {
-        font-variant: small-caps;
-        letter-spacing: 0.0125em;
-        font-size: 16px;
-    }
 }

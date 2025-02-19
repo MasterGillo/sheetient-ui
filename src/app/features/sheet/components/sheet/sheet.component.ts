@@ -28,7 +28,7 @@ import { filter, first, merge, takeUntil } from 'rxjs';
 import { FieldType } from 'src/app/models/field-type.enum';
 import { Field } from 'src/app/models/field.type';
 import { Sheet } from 'src/app/models/sheet.model';
-import { SheetService } from 'src/app/services/sheet/sheet.service';
+import { SheetService } from 'src/app/services/sheet.service';
 import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
 import { FieldListDialogComponent } from '../field-list-dialog/field-list-dialog.component';
 import { OptionsSidebarComponent } from '../options-sidebar/options-sidebar/options-sidebar.component';

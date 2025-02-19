@@ -3,12 +3,12 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="card-header">Log In</div>
             <div class="card-body">
-                <mat-form-field class="no-rounding">
+                <mat-form-field>
                     <mat-label>Username or Email</mat-label>
                     <input matInput formControlName="usernameOrEmail" maxlength="256" />
-                    <mat-error *ngIf="usernameOrEmailControl.errors?.['required']"> Required field. </mat-error>
+                    <mat-error *ngIf="usernameOrEmailControl.errors?.['required']">Required field.</mat-error>
                 </mat-form-field>
-                <mat-form-field class="no-rounding">
+                <mat-form-field>
                     <mat-label>Password</mat-label>
                     <input
                         matInput
@@ -23,22 +23,19 @@
                         (click)="hidePassword = !hidePassword">
                         <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
-                    <mat-error *ngIf="passwordControl.errors?.['required']"> Required field. </mat-error>
-                    <mat-error *ngIf="passwordControl.errors?.['minlength']">
-                        Must be at least 8 characters.
-                    </mat-error>
+                    <mat-error *ngIf="passwordControl.errors?.['required']">Required field.</mat-error>
+                    <mat-error *ngIf="passwordControl.errors?.['minlength']">Must be at least 8 characters.</mat-error>
                 </mat-form-field>
                 <div class="control-row control-row__space-between">
-                    <mat-checkbox class="checkbox-accent-text" color="accent" formControlName="rememberMe">
-                        Remember Me
-                    </mat-checkbox>
-                    <app-action-button color="accent">Forgot Password?</app-action-button>
+                    <mat-checkbox color="accent" formControlName="rememberMe">Remember Me</mat-checkbox>
+                    <button mat-button color="accent">Forgot Password?</button>
                 </div>
             </div>
             <div class="card-footer">
-                <app-spinner-button color="accent" type="submit" [isSpinning]="isLoggingIn">Log In</app-spinner-button>
+                <app-spinner-button color="accent" [isSpinning]="isLoggingIn">
+                    <button mat-flat-button color="accent" type="submit" #button>Log In</button>
+                </app-spinner-button>
             </div>
         </form>
     </div>
-    <div class="error-message mat-elevation-z3" *ngIf="errorMessage">{{ errorMessage }}</div>
 </div>

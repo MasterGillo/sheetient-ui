@@ -48,9 +48,10 @@ export class AuthService {
             );
     }
 
-    logout(): void {
+    logout(): Observable<void> {
         localStorage.clear();
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
+        return this.httpClient.post<void>('http://localhost:5008/api/auth/logout', {});
     }
 
     refresh(): Observable<AccessTokenResponseDto | null> {

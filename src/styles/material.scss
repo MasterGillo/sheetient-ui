@@ -1,0 +1,77 @@
+@use '@angular/material' as mat;
+
+:root {
+    @include mat.button-overrides(
+        (
+            filled-container-shape: 0,
+            protected-container-shape: 0,
+            text-container-shape: 0,
+            filled-label-text-tracking: 0.0125em,
+            protected-label-text-tracking: 0.0125em,
+            text-label-text-tracking: 0.0125em,
+            filled-label-text-size: 16px,
+            protected-label-text-size: 16px,
+            text-label-text-size: 16px,
+        )
+    );
+    @include mat.form-field-overrides(
+        (
+            filled-container-shape: 0,
+            outlined-container-shape: 0,
+        )
+    );
+    @include mat.checkbox-overrides(
+        (
+            label-text-weight: 500,
+            label-text-tracking: 0.0125em,
+            label-text-color: rgba(0, 0, 0, 0.54),
+        )
+    );
+    @include mat.dialog-overrides(
+        (
+            container-shape: 0,
+        )
+    );
+    @include mat.snack-bar-overrides(
+        (
+            container-shape: 0,
+        )
+    );
+    @include mat.menu-overrides(
+        (
+            container-shape: 0,
+            container-color: mat.m2-get-color-from-palette($sheetient-primary, 600),
+            item-label-text-color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 600),
+            item-label-text-weight: 500,
+            item-label-text-tracking: 0.0125em,
+        )
+    );
+}
+
+button:not(.mdc-icon-button) {
+    font-variant: small-caps;
+}
+
+mat-checkbox {
+    div.mdc-checkbox__background {
+        border-radius: 0;
+    }
+
+    label.mdc-label {
+        font-variant: small-caps;
+    }
+
+    &.mat-accent.mat-mdc-checkbox-checked {
+        label.mdc-label {
+            color: mat.m2-get-color-from-palette($sheetient-accent, 700) !important;
+        }
+    }
+}
+
+.toast-container-accent {
+    border-bottom: 4px solid mat.m2-get-color-from-palette($sheetient-accent, 600);
+}
+
+.toast-container-warn {
+    border-bottom: 4px solid mat.m2-get-color-from-palette($sheetient-warn, 600);
+}

@@ -7,8 +7,8 @@ import { ConfirmationDialogData } from 'src/app/models/confirmation-dialog-data.
 import { OptionsInterface } from 'src/app/models/options.interface';
 import { Page } from 'src/app/models/page.model';
 import { Sheet } from 'src/app/models/sheet.model';
-import { OptionsService } from 'src/app/services/options/options.service';
-import { SheetService } from 'src/app/services/sheet/sheet.service';
+import { OptionsService } from 'src/app/services/options.service';
+import { SheetService } from 'src/app/services/sheet.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
 import { GridOptionsComponent } from '../grid-options/grid-options.component';

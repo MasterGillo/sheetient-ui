@@ -20,26 +20,11 @@ export class SheetService {
         pages: [],
     };
 
-    private _pages: Page[] = [
-        {
-            id: 0,
-            name: 'Page 1',
-            colour: 'ffffff',
-            height: 1123,
-            width: 794,
-            order: 0,
-            // grid: {
-            //     spacingY: 20,
-            //     spacingX: 20,
-            //     showGrid: true,
-            //     gridColour: 'cccccc',
-            // },
-        },
-    ];
+    private _pages: Page[] = [];
 
     private _fields: Field[] = [];
 
-    private _currentPageId: number = this._pages[0].id;
+    private _currentPageId: number = this._pages[0]?.id ?? 1;
 
     sheet$: BehaviorSubject<Sheet> = new BehaviorSubject(this._sheet);
     pages$: BehaviorSubject<Page[]> = new BehaviorSubject(this._pages);
@@ -63,7 +48,7 @@ export class SheetService {
     }
 
     updateCurrentPage(pageChanges: Partial<Page>): void {
-    //     this.updatePage(this._currentPageId, pageChanges);
+        //     this.updatePage(this._currentPageId, pageChanges);
     }
 
     updatePage(pageId: number, pageChanges: Partial<Page>): void {
@@ -72,9 +57,7 @@ export class SheetService {
         //     const grid = { ...this._pages[index].grid };
         //     this._pages[index] = { ...this._pages[index], ...pageChanges };
         //     this._pages[index].grid = { ...grid, ...pageChanges.grid };
-
         //     this.pages$.next(this._pages);
-
         //     if (this._currentPageId === pageId) {
         //         this.currentPage$.next(this._pages[index]);
         //     }
@@ -148,5 +131,9 @@ export class SheetService {
 
     createSheet(sheet: Sheet): Observable<number> {
         return this.httpClient.post<number>(environment.baseApiUrl + '/sheet', sheet);
+    }
+
+    deleteSheet(sheetId: number): Observable<void> {
+        return this.httpClient.delete<void>(environment.baseApiUrl + '/sheet/' + sheetId);
     }
 }

@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActionButtonComponent } from '../../../../shared/components/action-button/action-button.component';
+import { MatButton } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 
@@ -8,7 +8,7 @@ import { RegisterComponent } from '../register/register.component';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    imports: [NgIf, LoginComponent, RegisterComponent, ActionButtonComponent],
+    imports: [NgIf, LoginComponent, RegisterComponent, MatButton],
 })
 export class HomeComponent {
     login = true;

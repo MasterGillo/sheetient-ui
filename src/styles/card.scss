@@ -4,7 +4,7 @@
 
     .card-header {
         background-color: mat.m2-get-color-from-palette($sheetient-primary, 600);
-        color: mat.m2-get-color-from-palette($sheetient-primary, 600);
+        color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 600);
         height: 4rem;
         display: flex;
         align-items: center;

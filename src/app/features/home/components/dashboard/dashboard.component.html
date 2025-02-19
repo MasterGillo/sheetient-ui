@@ -1,0 +1,51 @@
+<div class="app-container">
+    <div class="app-bar mat-elevation-z4">
+        <h1 class="title">Sheetient</h1>
+        <button mat-flat-button color="primary" (click)="logOutClick()">Log Out</button>
+    </div>
+    <div class="app-content">
+        <div class="dashboard-section">
+            <div class="dashboard-section-header">
+                <span>Sheets</span>
+            </div>
+            <div class="dashboard-section-content">
+                <div class="button-row">
+                    <button mat-raised-button color="accent" [disabled]="isLoading" (click)="openNewSheetDialog()">
+                        Create New Sheet
+                    </button>
+                </div>
+                <app-loader *ngIf="isLoading"></app-loader>
+                <div class="sheet-list">
+                    <div
+                        *ngFor="let sheet of sheets; index as i"
+                        class="sheet"
+                        matRipple
+                        [matRippleDisabled]="true"
+                        (mousedown)="toggleRipple($event, i, true)"
+                        (mouseup)="toggleRipple($event, i, false)"
+                        (click)="openSheet(sheet.id)">
+                        <div class="sheet-image"></div>
+                        <div class="sheet-footer">
+                            <div class="sheet-footer-row">
+                                <span class="sheet-name">{{ sheet.name }}</span>
+                                <button
+                                    mat-icon-button
+                                    (mousedown)="openSheetMenu($event)"
+                                    [matMenuTriggerFor]="sheetMenu"
+                                    [matMenuTriggerData]="{ sheet: sheet }">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                            </div>
+                            <span class="sheet-description">{{ sheet.description }}</span>
+                        </div>
+                    </div>
+                    <mat-menu #sheetMenu="matMenu" class="sheet-menu">
+                        <ng-template matMenuContent let-sheet="sheet">
+                            <button mat-menu-item (click)="deleteSheet(sheet)">Delete</button>
+                        </ng-template>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

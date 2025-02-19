@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatIconButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 import { NoWhiteSpaceValidator } from 'src/app/features/home/validators/no-white-space.validator';
 import { UsernameValidator } from 'src/app/features/home/validators/username.validator';
 import { IdentityError } from 'src/app/models/identity-error.interface';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ToastService } from 'src/app/services/toast/toast.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { SpinnerButtonComponent } from '../../../../shared/components/spinner-button/spinner-button.component';
 
 @Component({
@@ -29,6 +29,7 @@ import { SpinnerButtonComponent } from '../../../../shared/components/spinner-bu
         MatSuffix,
         MatIcon,
         SpinnerButtonComponent,
+        MatButton,
     ],
 })
 export class RegisterComponent implements OnInit {
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthService,
         private router: Router,
-        private toastService: ToastService
+        private errorHandlerService: ErrorHandlerService
     ) {}
 
     ngOnInit(): void {
@@ -99,9 +100,7 @@ export class RegisterComponent implements OnInit {
                 },
                 error: (error: HttpErrorResponse) => {
                     this.isSigningUp = false;
-                    if (error.status == 0) {
-                        this.toastService.showErrorMessage('Unknown problem connecting to server.');
-                    } else if (error.status == 409) {
+                    if (error.status == 409) {
                         const errorList = JSON.parse(error.error) as IdentityError[];
                         errorList.forEach((error: IdentityError) => {
                             if (error.Code === 'DuplicateUserName') {
@@ -118,7 +117,7 @@ export class RegisterComponent implements OnInit {
                             }
                         });
                     } else {
-                        this.toastService.showErrorMessage(error.error);
+                        this.errorHandlerService.handle(error, 'Sign up failed');
                     }
                 },
             });

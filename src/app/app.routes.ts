@@ -1,25 +1,14 @@
-import { inject } from '@angular/core';
-import { Router, Routes } from '@angular/router';
-import { AuthService } from './services/auth/auth.service';
-
-const authGuard = () => {
-    const authService = inject(AuthService);
-    const router = inject(Router);
-    if (authService.isLoggedIn) {
-        return true;
-    } else {
-        return router.parseUrl('home');
-    }
-};
+import { Routes } from '@angular/router';
+import { AUTH_GUARD } from './shared/guards/auth.guard';
 
 export const APP_ROUTES: Routes = [
     {
         path: '',
-        loadChildren: () => import('./features/sheet/sheet.routes').then((r) => r.SHEET_ROUTES),
-        canActivate: [authGuard],
+        loadChildren: () => import('./features/home/home.routes').then((r) => r.HOME_ROUTES),
     },
     {
-        path: 'home',
-        loadChildren: () => import('./features/home/home.routes').then((r) => r.HOME_ROUTES),
+        path: 'sheet',
+        loadChildren: () => import('./features/sheet/sheet.routes').then((r) => r.SHEET_ROUTES),
+        canActivate: [AUTH_GUARD],
     },
 ];
