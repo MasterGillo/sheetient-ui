@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import '/src/styles/theme.scss';
+@use '/src/styles/theme.scss';
 
 .page-container {
     display: flex;
@@ -8,17 +8,17 @@
     background-image:
         conic-gradient(
             from 85deg at bottom 23% right 45%,
-            mat.m2-get-color-from-palette($sheetient-primary, 400) 90deg,
+            mat.m2-get-color-from-palette(theme.$sheetient-primary, 400) 90deg,
             transparent 90deg
         ),
         conic-gradient(
             from 80deg at bottom 15% right 50%,
-            mat.m2-get-color-from-palette($sheetient-primary, 500) 90deg,
+            mat.m2-get-color-from-palette(theme.$sheetient-primary, 500) 90deg,
             transparent 90deg
         ),
         linear-gradient(
-            mat.m2-get-color-from-palette($sheetient-primary, 500) 50%,
-            mat.m2-get-color-from-palette($sheetient-primary, 200)
+            mat.m2-get-color-from-palette(theme.$sheetient-primary, 500) 50%,
+            mat.m2-get-color-from-palette(theme.$sheetient-primary, 200)
         );
 }
 
@@ -42,7 +42,7 @@
         font-weight: 600;
         letter-spacing: 0.0125em;
         font-variant: small-caps;
-        color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 400);
         margin-bottom: 0.5rem;
     }
 
@@ -50,10 +50,10 @@
         font-size: 24px;
         line-height: 32px;
         font-weight: 500;
-        color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 400);
         margin-bottom: 1.5rem;
     }
     p {
-        color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 400);
     }
 }

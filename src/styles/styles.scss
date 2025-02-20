@@ -1,12 +1,10 @@
 @use '@angular/material' as mat;
-@import './theme.scss';
+@use './theme.scss';
+@use './material.scss';
+@use './card.scss';
 
-@include mat.all-component-themes($sheetient-theme);
-
-@include mat.typography-hierarchy($sheetient-typography);
-
-@import './material.scss';
-@import './card.scss';
+@include mat.all-component-themes(theme.$sheetient-theme);
+@include mat.typography-hierarchy(theme.$sheetient-typography);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -32,7 +30,7 @@ input[type=number] {
 }
 
 .section-container {
-    border: 1px solid mat.m2-get-color-from-palette($sheetient-primary, 400);
+    border: 1px solid mat.m2-get-color-from-palette(theme.$sheetient-primary, 400);
     box-shadow: none !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
@@ -41,8 +39,8 @@ input[type=number] {
 .dialog-header {
     height: 2rem;
     text-transform: uppercase;
-    background-color: mat.m2-get-color-from-palette($sheetient-primary, 500);
-    color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 500);
+    background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 500);
+    color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 500);
     padding: 0 1.5rem;
     display: flex;
     align-items: center;
@@ -52,14 +50,14 @@ input[type=number] {
 
 .section-header {
     text-transform: uppercase;
-    background-color: mat.m2-get-color-from-palette($sheetient-primary, 400);
-    color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400);
+    background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 400);
+    color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 400);
     border-radius: 0 !important;
     padding: 0 1.5rem 0 1rem;
     &:hover,
     &:focus {
         background-color: mat.m2-get-color-from-palette(
-            $sheetient-primary,
+            theme.$sheetient-primary,
             400
         ) !important;
     }
@@ -72,7 +70,7 @@ input[type=number] {
         top: -2px;
         transform-origin: 50% 12px;
         &::after {
-            color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 400) !important;
+            color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 400) !important;
         }
     }
 }
@@ -118,7 +116,7 @@ input[type=number] {
 }
 
 ngx-mat-color-toggle mat-icon {
-    color: mat.m2-get-color-from-palette($sheetient-accent, 500) !important;
+    color: mat.m2-get-color-from-palette(theme.$sheetient-accent, 500) !important;
 }
 
 .text-center {

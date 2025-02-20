@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import '/src/styles/theme.scss';
+@use '/src/styles/theme.scss';
 
 .app-container {
     display: flex;
@@ -14,8 +14,8 @@
         align-items: center;
         padding: 0 1.5rem;
         justify-content: flex-end;
-        background-color: mat.m2-get-color-from-palette($sheetient-primary, 500);
-        color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 500);
+        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 500);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 500);
         .title {
             position: absolute;
             font-size: 32px;
@@ -45,8 +45,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: mat.m2-get-color-from-palette($sheetient-primary, 600);
-                color: mat.m2-get-contrast-color-from-palette($sheetient-primary, 600);
+                background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 600);
+                color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 600);
                 height: 3rem;
                 padding: 0 3rem;
 
@@ -89,7 +89,7 @@
 
                         .sheet-image {
                             height: 14rem;
-                            background-color: mat.m2-get-color-from-palette($sheetient-primary, 100);
+                            background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 100);
                         }
                         .sheet-footer {
                             padding: 0.5rem 0.5rem 0.5rem 1rem;
@@ -103,7 +103,7 @@
                                     letter-spacing: 0.0125em;
                                     font-size: 20px;
                                     font-weight: 500;
-                                    color: mat.m2-get-color-from-palette($sheetient-primary, 700);
+                                    color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 700);
                                 }
                             }
 

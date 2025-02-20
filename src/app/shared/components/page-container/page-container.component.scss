@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+@use'/src/styles/theme.scss' as theme;
+
+.page-container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    .app-bar {
+        position: relative;
+        z-index: 3;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        padding: 0 1.5rem;
+        justify-content: flex-end;
+        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 500);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 500);
+        .title {
+            position: absolute;
+            font-size: 32px;
+            line-height: 32px;
+            font-weight: 600;
+            letter-spacing: 0.0125em;
+            font-variant: small-caps;
+            margin: auto;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+    }
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 600);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 600);
+        height: 3rem;
+        padding: 0 3rem;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.0125em;
+        font-variant: small-caps;
+    }
+    .page-content {
+        flex: 1 1 auto;
+        background-color: whitesmoke;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+}

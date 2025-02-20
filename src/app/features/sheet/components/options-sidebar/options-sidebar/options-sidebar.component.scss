@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
-@import '/src/styles/theme.scss';
+@use '/src/styles/theme.scss';
 :host {
     height: 100%;
 }
 
 .sidebar-container {
     height: 100%;
-    background-color: mat.m2-get-color-from-palette($sheetient-primary, 50);
+    background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 50);
     padding: 1rem;
     box-sizing: border-box;
 }
@@ -19,5 +19,5 @@
     font-weight: 500;
     line-height: 32px;
     text-transform: uppercase;
-    color: mat.m2-get-color-from-palette($sheetient-primary, 900);
+    color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 900);
 }
