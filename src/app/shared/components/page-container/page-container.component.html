@@ -1,0 +1,16 @@
+<div class="page-container">
+    <div class="app-bar mat-elevation-z4">
+        <h1 class="title">Sheetient</h1>
+        <button mat-flat-button color="primary" (click)="logOutClick()">Log Out</button>
+    </div>
+    <div class="page-header">
+        <button mat-icon-button *ngIf="showBackButton" (click)="backButtonClick.emit()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="page-header-text">{{ isLoading ? 'Loading...' : pageHeader }}</span>
+    </div>
+    <div class="page-content">
+        <app-loader *ngIf="isLoading"></app-loader>
+        <ng-content></ng-content>
+    </div>
+</div>

@@ -10,9 +10,10 @@ export class Page {
     gridSpacingY = 20;
     order = 1;
 
-    constructor(name: string, height: number, width: number) {
+    constructor(name: string, height: number, width: number, order: number) {
         this.name = name;
         this.height = height;
         this.width = width;
+        this.order = order;
     }
 }

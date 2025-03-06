@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogClose, MatDialogRef } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { takeUntil } from 'rxjs';
@@ -27,6 +27,7 @@ import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/un
         MatSuffix,
         MatButton,
         SpinnerButtonComponent,
+        MatDialogClose,
     ],
 })
 export class NewSheetDialogComponent extends UnsubscriberComponent implements OnInit {
@@ -89,16 +90,10 @@ export class NewSheetDialogComponent extends UnsubscriberComponent implements On
                 .subscribe({
                     next: (sheetId: number) => this.dialogRef.close(sheetId),
                     error: (error: HttpErrorResponse) => {
-                        this.errorHandlerService.handle(error);
+                        this.errorHandlerService.handle(error, 'Failed to create sheet');
                         this.isSaving = false;
                     },
                 });
-        }
-    }
-
-    cancelClicked(): void {
-        if (!this.isSaving) {
-            this.dialogRef.close();
         }
     }
 }

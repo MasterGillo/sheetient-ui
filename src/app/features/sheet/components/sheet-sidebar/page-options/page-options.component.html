@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+    <div class="sidebar-section">
+        <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" maxlength="50" />
+        </mat-form-field>
+        <button color="warn" type="button" mat-flat-button (click)="deletePage()">Delete Page</button>
+    </div>
+</form>

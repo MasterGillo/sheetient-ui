@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@use'/src/styles/theme.scss' as theme;
+@use '/src/styles/theme.scss' as theme;
 
 .page-container {
     display: flex;
@@ -10,12 +10,13 @@
         position: relative;
         z-index: 3;
         height: 4rem;
+        flex: 0 0 auto;
         display: flex;
         align-items: center;
         padding: 0 1.5rem;
         justify-content: flex-end;
-        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 500);
-        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 500);
+        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 600);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 600);
         .title {
             position: absolute;
             font-size: 32px;
@@ -31,17 +32,22 @@
     }
     .page-header {
         display: flex;
+        flex: 0 0 auto;
         align-items: center;
-        justify-content: space-between;
-        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 600);
-        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 600);
+        gap: 1rem;
+        background-color: mat.m2-get-color-from-palette(theme.$sheetient-primary, 700);
+        color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 700);
         height: 3rem;
-        padding: 0 3rem;
+        padding: 0 1rem;
         font-size: 24px;
         font-weight: 500;
         line-height: 24px;
         letter-spacing: 0.0125em;
         font-variant: small-caps;
+
+        .page-header-text:first-child {
+            margin-left: 2rem;
+        }
     }
     .page-content {
         flex: 1 1 auto;

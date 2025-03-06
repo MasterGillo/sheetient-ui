@@ -1,94 +1,41 @@
-<mat-toolbar color="primary" class="app-bar mat-elevation-z4">
-    <span
-        class="sheet-name"
-        matTooltip="Click to update sheet name"
-        (click)="editingSheetName = true"
-        (keyup.enter)="editingSheetName = true"
-        role="button"
-        tabindex="0"
-        #sheetName
-        [innerHTML]="sheetNameInnerHtml">
-    </span>
-    <input
-        class="sheet-name-input"
-        matInput
-        [formControl]="sheetNameControl"
-        *ngIf="editingSheetName"
-        [style.width.px]="sheetNameWidth"
-        (blur)="editingSheetName = false"
-        #sheetNameInput />
-</mat-toolbar>
-<div class="app-container">
-    <mat-toolbar></mat-toolbar>
+<app-page-container
+    [pageHeader]="sheet ? sheet.name : 'Loading...'"
+    [isLoading]="isLoading"
+    [showBackButton]="true"
+    (backButtonClick)="back()">
     <mat-sidenav-container>
         <mat-sidenav mode="side" position="end" opened disableClose>
-            <app-options-sidebar></app-options-sidebar>
+            <app-sheet-sidebar></app-sheet-sidebar>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div class="tab-bar">
-                <div
-                    class="tab-list"
-                    cdkDropList
-                    cdkDropListOrientation="horizontal"
-                    cdkDropListLockAxis="x"
-                    (cdkDropListDropped)="dropPage($event)"
-                    [class.dragging]="draggingTab">
+            <div class="page-tab-header">
+                <ng-container *ngIf="sheet">
                     <div
-                        matRipple
-                        matRippleColor="#ffffff66"
-                        class="tab tab__page mat-body-strong"
-                        [class.tab__active]="page.id === (sheetService.currentPage$ | async)?.id"
-                        [class.tab__multi]="((sheetService.pages$ | async)?.length ?? 0) > 1"
-                        *ngFor="let page of sheetService.pages$ | async"
-                        (click)="switchPage(page.id)"
-                        (keyup.enter)="switchPage(page.id)"
-                        role="button"
-                        tabindex="0"
-                        cdkDrag
-                        cdkDragBoundary=".tab-bar"
-                        (cdkDragStarted)="toggleDrag(true)"
-                        (cdkDragEnded)="toggleDrag(false)"
-                        (cdkDragMoved)="dragMoved($event)">
-                        <mat-icon
-                            class="drag-handle"
-                            cdkDragHandle
-                            #tabTooltip="matTooltip"
-                            matTooltip="Drag to reorder pages">
-                            drag_indicator
-                        </mat-icon>
-                        {{ page.name }}
-                        <div *cdkDragPreview class="tab tab-drag-preview mat-body-strong mat-elevation-z8" #dragPreview>
-                            <mat-icon class="drag-handle">drag_indicator</mat-icon>{{ page.name }}
+                        class="page-list"
+                        cdkDropList
+                        cdkDropListOrientation="horizontal"
+                        cdkDropListLockAxis="x"
+                        (cdkDropListDropped)="dropPageTab($event)">
+                        <div
+                            matRipple
+                            matRippleColor="primary"
+                            class="page-tab"
+                            *ngFor="let page of sheet.pages"
+                            [ngClass]="{ 'page-tab--active': page.id === currentPage.id }"
+                            (click)="changePage(page.id)"
+                            cdkDrag
+                            cdkDragBoundary=".page-list"
+                            [id]="'page_' + page.id">
+                            <span class="page-tab-hover"></span>
+                            {{ page.name }}
                         </div>
                     </div>
-                </div>
-                <div
-                    matRipple
-                    matRippleColor="#ffffff66"
-                    class="tab"
-                    matTooltip="Add page"
-                    (click)="addPage()"
-                    (keyup.enter)="addPage()"
-                    role="button"
-                    tabindex="0"
-                    *ngIf="!draggingTab">
-                    <mat-icon>note_add</mat-icon>
-                </div>
-            </div>
-            <app-page
-                [page]="(sheetService.currentPage$ | async)!"
-                [fields]="(sheetService.fields$ | async)!"
-                [newField]="(sheetService.newField$ | async)!"
-                (newFieldAdded)="addNewField($event)"
-                cdkScrollable></app-page>
-            <div class="add-field-button" #fieldButton>
-                <button mat-raised-button color="accent" (click)="toggleFieldList()">
-                    <div class="button-label">
-                        <span>ADD FIELD</span>
-                        <mat-icon>arrow_drop_down</mat-icon>
+                    <div class="page-tab page-tab-button">
+                        <button mat-icon-button color="primary" (click)="addNewPage()"><mat-icon>add</mat-icon></button>
                     </div>
-                </button>
+                </ng-container>
             </div>
+            <app-page [page]="currentPage"></app-page>
         </mat-sidenav-content>
     </mat-sidenav-container>
-</div>
+</app-page-container>

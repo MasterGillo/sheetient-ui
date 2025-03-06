@@ -3,7 +3,7 @@ import { SheetComponent } from './components/sheet/sheet.component';
 
 export const SHEET_ROUTES: Routes = [
     {
-        path: '',
+        path: ':sheetId',
         component: SheetComponent,
     },
 ];

@@ -8,6 +8,6 @@ export class Sheet {
 
     constructor(name: string, pageHeight: number, pageWidth: number) {
         this.name = name;
-        this.pages = [new Page('Page 1', pageHeight, pageWidth)];
+        this.pages = [new Page('Page 1', pageHeight, pageWidth, 1)];
     }
 }

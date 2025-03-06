@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -7,13 +7,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuContent, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import { filter, switchMap, takeUntil } from 'rxjs';
+import { ConfirmationDialogData } from 'src/app/models/confirmation-dialog-data.interface';
 import { Sheet } from 'src/app/models/sheet.model';
-import { AuthService } from 'src/app/services/auth.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { SheetService } from 'src/app/services/sheet.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
-import { NewSheetDialogComponent } from '../../../sheet/components/new-sheet-dialog/new-sheet-dialog.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { PageContainerComponent } from 'src/app/shared/components/page-container/page-container.component';
+import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
+import { NewSheetDialogComponent } from '../new-sheet-dialog/new-sheet-dialog.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -21,8 +24,6 @@ import { NewSheetDialogComponent } from '../../../sheet/components/new-sheet-dia
     styleUrls: ['./dashboard.component.scss'],
     imports: [
         NgFor,
-        NgIf,
-        LoaderComponent,
         MatIconButton,
         MatIcon,
         MatRipple,
@@ -31,9 +32,10 @@ import { NewSheetDialogComponent } from '../../../sheet/components/new-sheet-dia
         MatMenuItem,
         MatButton,
         MatMenuContent,
+        PageContainerComponent,
     ],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends UnsubscriberComponent implements OnInit {
     @ViewChildren(MatRipple) private matRipples: QueryList<MatRipple>;
 
     sheets: Sheet[] = [];
@@ -44,9 +46,10 @@ export class DashboardComponent implements OnInit {
         private sheetService: SheetService,
         private router: Router,
         private errorHandlerService: ErrorHandlerService,
-        private authService: AuthService,
         private toastService: ToastService
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit(): void {
         this.sheetService.getSheets().subscribe({
@@ -62,23 +65,12 @@ export class DashboardComponent implements OnInit {
     }
 
     openNewSheetDialog(): void {
-        const dialog = this.matDialog.open(NewSheetDialogComponent, {
-            panelClass: 'sheetient-dialog',
-        });
+        const dialog = this.matDialog.open(NewSheetDialogComponent, {});
         dialog.afterClosed().subscribe((sheetId: number) => {
             if (sheetId) {
                 this.router.navigate(['/sheet', sheetId]);
             }
         });
-    }
-
-    logOutClick(): void {
-        this.authService.logout().subscribe();
-    }
-
-    openSheetMenu(event: MouseEvent) {
-        event.stopPropagation();
-        event.preventDefault();
     }
 
     toggleRipple(event: MouseEvent, index: number, show: boolean): void {
@@ -92,17 +84,35 @@ export class DashboardComponent implements OnInit {
     }
 
     deleteSheet(sheet: Sheet): void {
-        this.sheetService.deleteSheet(sheet.id).subscribe({
-            next: () => {
-                const index = this.sheets.indexOf(sheet);
-                this.sheets.splice(index, 1);
-                this.toastService.showInfoMessage('Sheet removed.');
-            },
-            error: (error: HttpErrorResponse) => {
-                this.errorHandlerService.handle(error, 'Failed to delete sheet');
-                this.isLoading = false;
-            },
+        const confirmationDialogData: ConfirmationDialogData = {
+            headerIcon: 'delete',
+            headerText: 'Confirm Delete',
+            bodyText: 'Are you sure you want to permanently delete this sheet?',
+            actionButtonText: 'Delete',
+            noActionButtonText: 'Cancel',
+        };
+        const dialog = this.matDialog.open(ConfirmationDialogComponent, {
+            autoFocus: 'dialog',
+            data: confirmationDialogData,
         });
+        dialog
+            .afterClosed()
+            .pipe(
+                filter((confirmed: boolean) => confirmed),
+                switchMap(() => this.sheetService.deleteSheet(sheet.id)),
+                takeUntil(this.unsubscribe)
+            )
+            .subscribe({
+                next: () => {
+                    const index = this.sheets.indexOf(sheet);
+                    this.sheets.splice(index, 1);
+                    this.toastService.showInfoMessage('Sheet removed.');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.errorHandlerService.handle(error, 'Failed to delete sheet');
+                    this.isLoading = false;
+                },
+            });
     }
 
     openSheet(sheetId: number): void {

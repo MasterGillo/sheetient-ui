@@ -1,223 +1,100 @@
-import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDragMove, CdkDragPreview, CdkDropList } from '@angular/cdk/drag-drop';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import {
-    AfterViewInit,
-    Component,
-    ComponentRef,
-    ElementRef,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    QueryList,
-    ViewChild,
-    ViewChildren,
-    ViewContainerRef,
-} from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatInput } from '@angular/material/input';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
-import { MatToolbar } from '@angular/material/toolbar';
-import { MatTooltip } from '@angular/material/tooltip';
-import { filter, first, merge, takeUntil } from 'rxjs';
-import { FieldType } from 'src/app/models/field-type.enum';
-import { Field } from 'src/app/models/field.type';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs';
+import { Page } from 'src/app/models/page.model';
 import { Sheet } from 'src/app/models/sheet.model';
-import { SheetService } from 'src/app/services/sheet.service';
+import { SheetStateService } from 'src/app/services/sheet-state.service';
+import { PageContainerComponent } from 'src/app/shared/components/page-container/page-container.component';
 import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
-import { FieldListDialogComponent } from '../field-list-dialog/field-list-dialog.component';
-import { OptionsSidebarComponent } from '../options-sidebar/options-sidebar/options-sidebar.component';
 import { PageComponent } from '../page/page.component';
+import { SheetSidebarComponent } from '../sheet-sidebar/sheet-sidebar.component';
 
 @Component({
     selector: 'app-sheet',
     templateUrl: './sheet.component.html',
     styleUrls: ['./sheet.component.scss'],
     imports: [
-        MatToolbar,
-        MatTooltip,
-        NgIf,
-        MatInput,
-        ReactiveFormsModule,
-        MatSidenavContainer,
+        PageContainerComponent,
         MatSidenav,
-        OptionsSidebarComponent,
+        MatSidenavContainer,
         MatSidenavContent,
-        CdkDropList,
+        SheetSidebarComponent,
         NgFor,
-        MatRipple,
-        CdkDrag,
+        NgIf,
         MatIcon,
-        CdkDragHandle,
-        CdkDragPreview,
+        MatIconButton,
+        MatRipple,
+        NgClass,
         PageComponent,
-        CdkScrollable,
-        MatButton,
-        AsyncPipe,
+        CdkDrag,
+        CdkDropList,
     ],
+    providers: [SheetStateService],
 })
-export class SheetComponent extends UnsubscriberComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('sheetName') sheetName: ElementRef;
-    @ViewChild('fieldButton') fieldButton: ElementRef;
-    @ViewChildren('tabTooltip') tabTooltips: QueryList<MatTooltip>;
-    @ViewChildren('sheetNameInput') sheetNameInputs: QueryList<ElementRef>;
-    @ViewChildren('dragPreview') dragPreviews: QueryList<ElementRef>;
+export class SheetComponent extends UnsubscriberComponent implements OnInit {
+    @Input() sheetId: number;
 
-    sheetNameWidth = 0;
+    isLoading = true;
+    sheetName: string;
+
     sheet: Sheet;
-    sheetNameInnerHtml: string;
-    sheetNameControl: FormControl = this.formBuilder.control('', [Validators.required]);
-    editingSheetName: boolean;
-    draggingTab: boolean;
-
-    fieldListOverlayRef: OverlayRef;
-    fieldListPortal: ComponentPortal<FieldListDialogComponent>;
-    fieldListComponentRef: ComponentRef<FieldListDialogComponent>;
+    currentPage: Page;
 
     constructor(
-        public sheetService: SheetService,
-        private formBuilder: FormBuilder,
-        private zone: NgZone,
-        private viewContainerRef: ViewContainerRef,
-        private overlay: Overlay
+        private sheetState: SheetStateService,
+        private router: Router
     ) {
         super();
     }
 
     ngOnInit(): void {
-        this.sheetService.sheet$.pipe(first(), takeUntil(this.unsubscribe)).subscribe((sheet: Sheet) => {
-            this.sheetNameControl.setValue(sheet.name);
-        });
-        this.sheetService.sheet$.pipe(takeUntil(this.unsubscribe)).subscribe((sheet: Sheet) => {
-            this.sheetNameInnerHtml = sheet.name.replace(/\s/g, '&nbsp;');
-        });
-        this.sheetNameControl.valueChanges.subscribe((value: string) => {
-            this.sheetService.updateSheet({ name: value });
-        });
-    }
-
-    ngAfterViewInit(): void {
-        const observer = new ResizeObserver((entries) => {
-            this.zone.run(() => {
-                this.sheetNameWidth = Math.ceil(entries[0].contentRect.width);
-            });
-        });
-        observer.observe(this.sheetName.nativeElement);
-
-        this.sheetNameInputs.changes.subscribe((queryList: QueryList<ElementRef>) => {
-            if (queryList.first && this.editingSheetName) {
-                queryList.first.nativeElement.focus();
-            }
-        });
-    }
-
-    override ngOnDestroy(): void {
-        this.closeFieldList();
-        if (this.fieldListOverlayRef) {
-            this.fieldListOverlayRef.dispose();
-            this.fieldListComponentRef.destroy();
-        }
-        super.ngOnDestroy();
-    }
-
-    addPage(): void {
-        this.sheetService.addPage();
-    }
-
-    switchPage(pageId: number): void {
-        this.sheetService.switchCurrentPage(pageId);
-    }
-
-    dropPage(event: CdkDragDrop<string[]>): void {
-        this.sheetService.reorderPages(event.previousIndex, event.currentIndex);
-    }
-
-    toggleDrag(dragging: boolean) {
-        this.draggingTab = dragging;
-        this.tabTooltips.forEach((toolTip) => {
-            if (!dragging) {
-                toolTip.disabled = false;
-            } else {
-                toolTip.disabled = true;
-                toolTip.hide();
-            }
-        });
-    }
-
-    dragMoved(event: CdkDragMove) {
-        if (this.dragPreviews.first) {
-            const xPos = event.pointerPosition.x - 16;
-            const yPos = event.pointerPosition.y;
-            this.dragPreviews.first.nativeElement.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-        }
-    }
-
-    toggleFieldList(): void {
-        if (
-            (this.fieldListOverlayRef && this.fieldListOverlayRef.hasAttached()) ||
-            (this.fieldListPortal && this.fieldListPortal.isAttached)
-        ) {
-            this.closeFieldList();
-        } else {
-            this.openFieldList();
-        }
-    }
-
-    openFieldList(): void {
-        if (!this.fieldListPortal) {
-            this.fieldListPortal = new ComponentPortal(FieldListDialogComponent, this.viewContainerRef);
-        }
-
-        if (!this.fieldListOverlayRef) {
-            this.fieldListOverlayRef = this.overlay.create({
-                positionStrategy: this.overlay
-                    .position()
-                    .flexibleConnectedTo(this.fieldButton)
-                    .withPositions([{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }]),
-            });
-        }
-
-        if (!this.fieldListOverlayRef.hasAttached()) {
-            this.fieldListComponentRef = this.fieldListOverlayRef.attach(this.fieldListPortal);
-            this.fieldListComponentRef.instance.addNewField
-                .pipe(takeUntil(this.unsubscribe))
-                .subscribe((fieldType: FieldType) => {
-                    this.sheetService.placeNewField(fieldType);
-                });
-        }
-
-        merge(
-            this.fieldListOverlayRef.detachments(),
-            this.fieldListOverlayRef.keydownEvents().pipe(
-                filter((event: KeyboardEvent) => {
-                    return event.key === 'Escape';
-                })
-            )
-        )
-            .pipe(first())
-            .subscribe((event: void | KeyboardEvent) => {
-                if (event) {
-                    event.preventDefault();
+        this.isLoading = true;
+        this.sheetState.sheet$.pipe(takeUntil(this.unsubscribe)).subscribe((sheet: Sheet | undefined) => {
+            if (sheet) {
+                if (this.isLoading) {
+                    this.isLoading = false;
                 }
-                this.closeFieldList();
-            });
+                sheet.pages.sort((a: Page, b: Page) => a.order - b.order);
+                this.sheet = sheet;
+            }
+        });
+        this.sheetState.currentPage$.pipe(takeUntil(this.unsubscribe)).subscribe((currentPage: Page) => {
+            if (currentPage) {
+                this.currentPage = currentPage;
+            }
+        });
+
+        this.sheetState.loadSheet(this.sheetId);
     }
 
-    closeFieldList(): void {
-        if (this.fieldListOverlayRef.hasAttached()) {
-            this.fieldListOverlayRef.detach();
+    addNewPage(): void {
+        const pages = this.sheet.pages;
+        let pageNumber = pages.length + 1;
+        let pageName = 'Page ' + pageNumber;
+        while (pages.some((page: Page) => page.name == pageName)) {
+            pageNumber++;
+            pageName = 'Page ' + pageNumber;
         }
-        if (this.fieldListPortal.isAttached) {
-            this.fieldListPortal.detach();
-        }
+        const newPage = new Page(pageName, this.currentPage.height, this.currentPage.width, pages.length + 1);
+        this.sheetState.createPage(newPage);
     }
 
-    addNewField(field: Field): void {
-        this.sheetService.addField(field);
+    changePage(pageId: number): void {
+        this.sheetState.changePage(pageId);
+    }
+
+    dropPageTab(event: CdkDragDrop<string[]>): void {
+        moveItemInArray(this.sheet.pages, event.previousIndex, event.currentIndex);
+        this.sheetState.reorderPages(this.sheet.pages.map((page: Page) => page.id));
+    }
+
+    back(): void {
+        this.router.navigate(['/']);
     }
 }

@@ -20,13 +20,10 @@ export class ErrorHandlerService {
         switch (statusCode) {
             case 403:
                 return "You aren't allowed to do this.";
-                break;
             case 404:
                 return "This doesn't seem to exist.";
-                break;
             default:
                 return 'Something unexpected went wrong.';
-                break;
         }
     }
 }

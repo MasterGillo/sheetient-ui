@@ -1,12 +1,10 @@
-<div class="dialog-container mat-body">
-    <div class="dialog-header">
-        <mat-icon>{{ data.headerIcon }}</mat-icon>
-        {{ data.headerText }}
+<div class="sheetient-card">
+    <div class="card-header">{{ data.headerText }}</div>
+    <div class="card-body">
+        <span>{{ data.bodyText }}</span>
+        <br />
     </div>
-    <div class="dialog-content">
-        {{ data.bodyText }}
-    </div>
-    <div class="dialog-actions">
+    <div class="card-footer">
         <button mat-button color="accent" [mat-dialog-close]="false">{{ data.noActionButtonText }}</button>
         <button mat-flat-button color="accent" [mat-dialog-close]="true">
             {{ data.actionButtonText }}

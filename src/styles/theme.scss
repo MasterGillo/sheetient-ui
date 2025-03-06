@@ -2,7 +2,7 @@
 @include mat.elevation-classes();
 @include mat.app-background();
 
-$sheetient-primary: mat.m2-define-palette(mat.$m2-blue-grey-palette, 500);
+$sheetient-primary: mat.m2-define-palette(mat.$m2-blue-grey-palette, 600);
 $sheetient-accent: mat.m2-define-palette(mat.$m2-teal-palette, 700);
 $sheetient-warn: mat.m2-define-palette(mat.$m2-red-palette, 800);
 
@@ -19,4 +19,4 @@ $sheetient-theme: mat.m2-define-light-theme(
     )
 );
 
-$theme-white: #FFF;
+$theme-white: #fff;

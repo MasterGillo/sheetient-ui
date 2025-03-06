@@ -1,0 +1,22 @@
+.page-container {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+.page {
+    border: 2px solid black;
+    flex: 1 1 auto;
+    position: relative;
+}
+
+.new-field-placeholder {
+    position: absolute;
+    background-color: black;
+    border: 1px dotted white;
+    opacity: 0.5;
+    box-sizing: border-box;
+    &.valid {
+        background-color: aqua;
+    }
+}

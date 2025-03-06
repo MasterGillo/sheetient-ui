@@ -1,0 +1,11 @@
+<div class="page-container" [style.width.px]="page.width + 4" [style.height.px]="page.height">
+    <!-- <div
+        #pageElement
+        class="page"
+        [style.background-color]="backgroundColour"
+        [style.background-size]="page.grid.showGrid ? backgroundSize : 'auto'"
+        [style.background-image]="page.grid.showGrid ? backgroundImage : 'none'">
+        <app-field *ngFor="let field of fields" [field]="field"></app-field>
+    </div> -->
+</div>
+<div class="new-field-placeholder" [class.valid]="newFieldValidPosition" *ngIf="newField" #newFieldPlaceholder></div>

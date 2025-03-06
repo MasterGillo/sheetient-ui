@@ -1,6 +1,7 @@
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Operation } from 'fast-json-patch';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FieldType } from 'src/app/models/field-type.enum';
 import { Field } from 'src/app/models/field.type';
@@ -64,19 +65,6 @@ export class SheetService {
         // }
     }
 
-    addPage(): void {
-        // const newId = Math.max(...this._pages.map((page) => page.id)) + 1;
-        // this._sheet.pageCount++;
-        // this.sheet$.next(this._sheet);
-        // const newPage = JSON.parse(JSON.stringify(this.currentPage$.getValue()));
-        // newPage.id = newId;
-        // newPage.name = 'Page ' + this._sheet.pageCount;
-        // newPage.order = this._pages.length;
-        // this._pages.push(newPage);
-        // this.pages$.next(this._pages);
-        // this.switchCurrentPage(newId);
-    }
-
     reorderPages(previousIndex: number, newIndex: number): void {
         moveItemInArray(this._pages, previousIndex, newIndex);
         this.reindexPages();
@@ -135,5 +123,17 @@ export class SheetService {
 
     deleteSheet(sheetId: number): Observable<void> {
         return this.httpClient.delete<void>(environment.baseApiUrl + '/sheet/' + sheetId);
+    }
+
+    getSheet(sheetId: number): Observable<Sheet> {
+        return this.httpClient.get<Sheet>(environment.baseApiUrl + '/sheet/' + sheetId);
+    }
+
+    patchSheet(sheetId: number, patch: Operation[]): Observable<void> {
+        return this.httpClient.patch<void>(environment.baseApiUrl + '/sheet/' + sheetId, patch);
+    }
+
+    createPage(sheetId: number, page: Page): Observable<number> {
+        return this.httpClient.post<number>(environment.baseApiUrl + '/sheet/' + sheetId + '/page', page);
     }
 }

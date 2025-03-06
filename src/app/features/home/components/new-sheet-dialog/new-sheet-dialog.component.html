@@ -4,7 +4,7 @@
         <div class="card-body">
             <mat-form-field>
                 <mat-label>Sheet Name</mat-label>
-                <input matInput maxlength="100" formControlName="sheetName" />
+                <input matInput maxlength="50" formControlName="sheetName" />
                 <mat-error *ngIf="sheetNameControl.errors?.['required']">Required field.</mat-error>
             </mat-form-field>
             <div class="control-row">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button mat-button color="accent" [disabled]="isSaving" (click)="cancelClicked()">Cancel</button>
+            <button mat-button color="accent" [disabled]="isSaving" mat-dialog-close type="button">Cancel</button>
             <app-spinner-button color="accent" appearance="flat" [isSpinning]="isSaving">
                 <button mat-flat-button color="accent" type="submit" #button>Create</button>
             </app-spinner-button>
