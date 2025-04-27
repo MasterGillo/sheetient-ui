@@ -1,12 +1,17 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
+import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
+import { FieldType } from 'src/app/models/field-type.enum';
+import { Field } from 'src/app/models/field.type';
+import { LabelField } from 'src/app/models/label-field';
 import { Page } from 'src/app/models/page.model';
 import { Sheet } from 'src/app/models/sheet.model';
 import { SheetStateService } from 'src/app/services/sheet-state.service';
@@ -34,6 +39,11 @@ import { SheetSidebarComponent } from '../sheet-sidebar/sheet-sidebar.component'
         PageComponent,
         CdkDrag,
         CdkDropList,
+        MatFabButton,
+        MatTooltip,
+        MatMenu,
+        MatMenuItem,
+        MatMenuTrigger,
     ],
     providers: [SheetStateService],
 })
@@ -45,6 +55,10 @@ export class SheetComponent extends UnsubscriberComponent implements OnInit {
 
     sheet: Sheet;
     currentPage: Page;
+
+    get fieldType(): typeof FieldType {
+        return FieldType;
+    }
 
     constructor(
         private sheetState: SheetStateService,
@@ -96,5 +110,17 @@ export class SheetComponent extends UnsubscriberComponent implements OnInit {
 
     back(): void {
         this.router.navigate(['/']);
+    }
+
+    addField(fieldType: FieldType): void {
+        let newField: Field | null = null;
+        switch (fieldType) {
+            case FieldType.Label: {
+                newField = new LabelField();
+            }
+        }
+        if (newField) {
+            this.sheetState.addNewField(newField);
+        }
     }
 }

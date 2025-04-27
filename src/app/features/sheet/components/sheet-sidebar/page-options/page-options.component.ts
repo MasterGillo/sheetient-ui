@@ -2,23 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { debounceTime, distinctUntilChanged, filter, map, skip, startWith, switchMap, takeUntil, tap } from 'rxjs';
 import { ConfirmationDialogData } from 'src/app/models/confirmation-dialog-data.interface';
 import { Page } from 'src/app/models/page.model';
+import { Sheet } from 'src/app/models/sheet.model';
 import { SheetStateService } from 'src/app/services/sheet-state.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { UnsubscriberComponent } from 'src/app/shared/components/unsubscriber/unsubscriber.component';
 
 @Component({
     selector: 'app-page-options',
-    imports: [MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatButton],
+    imports: [MatFormField, MatLabel, MatInput, ReactiveFormsModule, MatButton, MatSuffix],
     templateUrl: './page-options.component.html',
     styleUrl: './page-options.component.scss',
 })
 export class PageOptionsComponent extends UnsubscriberComponent implements OnInit {
     form: FormGroup;
+    canDelete: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -31,6 +33,8 @@ export class PageOptionsComponent extends UnsubscriberComponent implements OnIni
     ngOnInit(): void {
         this.form = this.formBuilder.group({
             name: ['', [Validators.required]],
+            height: [0, [Validators.required]],
+            width: [0, [Validators.required]],
         });
         this.sheetState.currentPage$
             .pipe(
@@ -54,6 +58,10 @@ export class PageOptionsComponent extends UnsubscriberComponent implements OnIni
                     this.sheetState.updatePage(map.pageId, map.page);
                 }
             });
+
+        this.sheetState.sheet$.pipe(takeUntil(this.unsubscribe)).subscribe((sheet: Sheet) => {
+            this.canDelete = sheet.pages.length > 1;
+        });
     }
 
     deletePage(): void {

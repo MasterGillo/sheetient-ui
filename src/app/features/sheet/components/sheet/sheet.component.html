@@ -36,6 +36,17 @@
                 </ng-container>
             </div>
             <app-page [page]="currentPage"></app-page>
+            <button
+                mat-fab
+                class="add-field-button"
+                matTooltip="Add field"
+                matTooltipPosition="left"
+                [matMenuTriggerFor]="fieldMenu">
+                <mat-icon>add</mat-icon>
+            </button>
+            <mat-menu #fieldMenu="matMenu" xPosition="before" overlapTrigger class="sheet-control-menu">
+                <button mat-menu-item (click)="addField(fieldType.Label)">Label</button>
+            </mat-menu>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </app-page-container>

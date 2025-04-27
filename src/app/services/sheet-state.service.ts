@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { compare, deepClone, RemoveOperation } from 'fast-json-patch';
 import { merge, ReplaySubject, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Field } from '../models/field.type';
 import { Page } from '../models/page.model';
 import { Sheet } from '../models/sheet.model';
 import { ErrorHandlerService } from './error-handler.service';
@@ -14,6 +15,7 @@ export class SheetStateService implements OnDestroy {
 
     sheet$ = new ReplaySubject<Sheet>();
     currentPage$ = new ReplaySubject<Page>();
+    newField$ = new Subject<Field | null>();
 
     unsubscribe$ = new Subject<void>();
 
@@ -96,6 +98,9 @@ export class SheetStateService implements OnDestroy {
             this.sheetService.patchSheet(this._sheet.id, patch).subscribe({
                 next: () => {
                     this.sheet$.next(sheetClone);
+                    if (this._currentPage.id === pageId) {
+                        this.currentPage$.next(page);
+                    }
                 },
                 error: (error: HttpErrorResponse) => {
                     this.errorHandler.handle(error, 'Failed to update page');
@@ -144,5 +149,13 @@ export class SheetStateService implements OnDestroy {
                 this.errorHandler.handle(error, 'Failed to reorder pages');
             },
         });
+    }
+
+    addNewField(field: Field): void {
+        this.newField$.next(field);
+    }
+
+    cancelAddNewField(): void {
+        this.newField$.next(null);
     }
 }

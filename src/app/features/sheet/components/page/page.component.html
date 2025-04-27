@@ -1,3 +1,10 @@
 <div *ngIf="page" class="page-container" [style.minWidth.px]="page.width + 64" [style.minHeight.px]="page.height + 64">
-    <div class="page mat-elevation-z1" [style.minWidth.px]="page.width" [style.minHeight.px]="page.height"></div>
+    <div
+        class="page mat-elevation-z1"
+        [style.minWidth.px]="page.width"
+        [style.minHeight.px]="page.height"
+        #pageElement></div>
+    <ng-container *ngIf="isAddingNewField">
+        <ng-container *ngComponentOutlet="newFieldComponent; inputs: newFieldInputs"></ng-container>
+    </ng-container>
 </div>

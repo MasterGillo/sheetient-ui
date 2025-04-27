@@ -45,7 +45,7 @@ export class OptionsSidebarComponent extends UnsubscriberComponent implements On
         return this._currentPage;
     }
     set currentPage(value: Partial<Page>) {
-        this.sheetService.updatePage(this._currentPage.id, value);
+        //this.sheetService.updatePage(this._currentPage.id, value);
     }
 
     constructor(

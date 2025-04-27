@@ -4,6 +4,20 @@
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" maxlength="50" />
         </mat-form-field>
-        <button color="warn" type="button" mat-flat-button (click)="deletePage()">Delete Page</button>
+        <div class="control-row">
+            <mat-form-field subscriptSizing="dynamic">
+                <mat-label>Height</mat-label>
+                <input inputmode="numeric" type="number" matInput formControlName="height" max="3000" />
+                <span matTextSuffix>pixels</span>
+            </mat-form-field>
+            <mat-form-field subscriptSizing="dynamic">
+                <mat-label>Width</mat-label>
+                <input inputmode="numeric" type="number" matInput formControlName="width" max="3000" />
+                <span matTextSuffix>pixels</span>
+            </mat-form-field>
+        </div>
+        <button color="warn" type="button" mat-flat-button (click)="deletePage()" [disabled]="!canDelete">
+            Delete Page
+        </button>
     </div>
 </form>

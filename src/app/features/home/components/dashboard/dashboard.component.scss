@@ -50,7 +50,17 @@
             }
 
             .sheet-description {
+                width: 100%;
+                display: -webkit-box;
+                line-clamp: 3;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
                 color: rgba(0, 0, 0, 0.7);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                overflow-wrap: anywhere;
+                font-size: 12px;
+                line-height: 16px;
             }
         }
     }

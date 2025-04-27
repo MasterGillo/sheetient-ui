@@ -137,7 +137,7 @@ export class PageComponent extends UnsubscriberComponent implements AfterViewIni
         }
 
         left += this.scrollOffsetX - boundingRect.left;
-        top += this.scrollOffsetY - boundingRect.top;
+        top += this.scrollOffsetY + pageBoundingRect.top - boundingRect.top;
 
         this.newFieldPlaceholderElement.nativeElement.style.left = `${left}px`;
         this.newFieldPlaceholderElement.nativeElement.style.top = `${top}px`;

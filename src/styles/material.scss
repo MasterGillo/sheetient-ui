@@ -59,6 +59,11 @@
             header-collapsed-state-height: 3rem,
         )
     );
+    @include mat.tooltip-overrides(
+        (
+            container-shape: 0,
+        )
+    );
 }
 
 button:not(.mdc-icon-button) {
@@ -93,4 +98,8 @@ mat-expansion-panel-header {
     mat-panel-title {
         font-variant: small-caps;
     }
+}
+
+.mat-mdc-fab {
+    --mdc-fab-container-shape: 0;
 }

@@ -22,3 +22,9 @@ mat-sidenav-container {
         background-color: mat.m2-get-contrast-color-from-palette(theme.$sheetient-primary, 500);
     }
 }
+
+.add-field-button {
+    position: absolute;
+    right: 1.5rem;
+    top: 4rem;
+}

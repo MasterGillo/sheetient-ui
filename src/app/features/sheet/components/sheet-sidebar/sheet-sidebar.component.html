@@ -1,23 +1,16 @@
 <div class="sheet-sidebar">
-    <form [formGroup]="form" *ngIf="!isLoading">
-        <mat-accordion multi>
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>Sheet Options</mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="sidebar-section">
-                    <mat-form-field subscriptSizing="dynamic">
-                        <mat-label>Name</mat-label>
-                        <input matInput formControlName="name" maxlength="50" />
-                    </mat-form-field>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>Page Options</mat-panel-title>
-                </mat-expansion-panel-header>
-                <app-page-options></app-page-options>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </form>
+    <mat-accordion multi *ngIf="!isLoading">
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Sheet Options</mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-sheet-options></app-sheet-options>
+        </mat-expansion-panel>
+        <mat-expansion-panel expanded>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Page Options</mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-page-options></app-page-options>
+        </mat-expansion-panel>
+    </mat-accordion>
 </div>

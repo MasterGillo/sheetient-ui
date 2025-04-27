@@ -48,22 +48,22 @@ export class SheetService {
         }
     }
 
-    updateCurrentPage(pageChanges: Partial<Page>): void {
-        //     this.updatePage(this._currentPageId, pageChanges);
-    }
+    // updateCurrentPage(pageChanges: Partial<Page>): void {
+    //         this.updatePage(this._currentPageId, pageChanges);
+    // }
 
-    updatePage(pageId: number, pageChanges: Partial<Page>): void {
-        // const index = this._pages.findIndex((page) => page.id === pageId);
-        // if (index != null) {
-        //     const grid = { ...this._pages[index].grid };
-        //     this._pages[index] = { ...this._pages[index], ...pageChanges };
-        //     this._pages[index].grid = { ...grid, ...pageChanges.grid };
-        //     this.pages$.next(this._pages);
-        //     if (this._currentPageId === pageId) {
-        //         this.currentPage$.next(this._pages[index]);
-        //     }
-        // }
-    }
+    // updatePage(pageId: number, pageChanges: Partial<Page>): void {
+    //     const index = this._pages.findIndex((page) => page.id === pageId);
+    //     if (index != null) {
+    //         const grid = { ...this._pages[index].grid };
+    //         this._pages[index] = { ...this._pages[index], ...pageChanges };
+    //         this._pages[index].grid = { ...grid, ...pageChanges.grid };
+    //         this.pages$.next(this._pages);
+    //         if (this._currentPageId === pageId) {
+    //             this.currentPage$.next(this._pages[index]);
+    //         }
+    //     }
+    // }
 
     reorderPages(previousIndex: number, newIndex: number): void {
         moveItemInArray(this._pages, previousIndex, newIndex);
@@ -91,16 +91,16 @@ export class SheetService {
         });
     }
 
-    placeNewField(fieldType: FieldType): void {
-        let newField: Field;
-        switch (fieldType) {
-            case FieldType.Label: {
-                newField = new LabelField(this._currentPageId);
-                this.newField$.next(newField);
-                break;
-            }
-        }
-    }
+    // placeNewField(fieldType: FieldType): void {
+    //     let newField: Field;
+    //     switch (fieldType) {
+    //         case FieldType.Label: {
+    //             newField = new LabelField(this._currentPageId);
+    //             this.newField$.next(newField);
+    //             break;
+    //         }
+    //     }
+    // }
 
     addField(field: Field) {
         if (field.type === FieldType.Label) {

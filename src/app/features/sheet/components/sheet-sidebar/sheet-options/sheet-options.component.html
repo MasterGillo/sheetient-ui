@@ -1,0 +1,12 @@
+<form [formGroup]="form">
+    <div class="sidebar-section">
+        <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" maxlength="50" />
+        </mat-form-field>
+        <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" maxlength="256" class="sheet-description"></textarea>
+        </mat-form-field>
+    </div>
+</form>
